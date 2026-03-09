@@ -1,0 +1,330 @@
+/* ── Base ────────────────────────────────────────── */
+
+:root {
+    --bg:   #0a0a0a;
+    --fg:   #e8e8e8;
+    --gold: #c9a84c;
+    --gold-dim: #8a6f2e;
+    --gold-bright: #e6c45c;
+    --muted: #999;
+    --max-width: 720px;
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+a {
+    color: var(--gold);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--gold-bright);
+}
+
+/* ── Page shell (positioning context for borders) ─ */
+
+.page-shell {
+    position: relative;
+    min-height: 100vh;
+}
+
+/* ── Girih border canvases ──────────────────────── */
+/* Default (tablet): 150px wide */
+
+.girih-border {
+    position: absolute;
+    top: 0;
+    width: 150px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.girih-left {
+    left: 0;
+}
+
+.girih-right {
+    right: 0;
+}
+
+/* ── Content wrapper ────────────────────────────── */
+
+.content-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ── Navigation ─────────────────────────────────── */
+
+.nav {
+    display: flex;
+    gap: 1.8rem;
+    padding: 1.5rem 0;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid #222;
+}
+
+.nav a {
+    color: var(--muted);
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.nav a:hover {
+    color: var(--gold);
+}
+
+/* ── Hero ───────────────────────────────────────── */
+
+.hero {
+    padding: 5rem 0 3rem;
+}
+
+.hero-inner {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.photo {
+    width: 280px;
+    height: 280px;
+    border-radius: 12px;
+    border: 2px solid var(--gold-dim);
+    object-fit: cover;
+    object-position: center 12%;
+    flex-shrink: 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.tagline {
+    color: var(--gold);
+    font-size: 1.15rem;
+    margin-top: 0.4rem;
+    font-weight: 500;
+}
+
+.affiliation {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-top: 0.3rem;
+}
+
+/* ── Sections ───────────────────────────────────── */
+
+.section {
+    padding: 3rem 0;
+    border-top: 1px solid #1a1a1a;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.01em;
+}
+
+.section p {
+    margin-bottom: 1rem;
+}
+
+.section-note {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* ── Research grid ──────────────────────────────── */
+
+.research-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.research-card {
+    padding: 1.5rem;
+    background: #111;
+    border-left: 3px solid var(--gold-dim);
+    border-radius: 0 4px 4px 0;
+}
+
+.research-card h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--fg);
+}
+
+.research-card p {
+    font-size: 0.95rem;
+    color: #bbb;
+    margin-bottom: 0;
+}
+
+/* ── Publications ───────────────────────────────── */
+
+.pub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.pub {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.pub-title {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.pub-detail {
+    font-size: 0.88rem;
+    color: var(--muted);
+}
+
+/* ── Timeline ───────────────────────────────────── */
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.timeline-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: baseline;
+}
+
+.timeline-date {
+    flex-shrink: 0;
+    width: 5.5rem;
+    font-size: 0.85rem;
+    color: var(--gold-dim);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+}
+
+.timeline-item strong {
+    color: var(--fg);
+}
+
+.timeline-detail {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* ── Contact ────────────────────────────────────── */
+
+.contact-links {
+    font-size: 1.05rem;
+}
+
+.sep {
+    color: #333;
+    margin: 0 0.3rem;
+}
+
+/* ── Footer ─────────────────────────────────────── */
+
+footer {
+    padding: 3rem 0 2rem;
+    border-top: 1px solid #1a1a1a;
+    text-align: center;
+    color: #444;
+    font-size: 0.8rem;
+}
+
+/* ── Responsive ─────────────────────────────────── */
+
+@media (max-width: 640px) {
+    body {
+        font-size: 16px;
+    }
+
+    .content-wrapper {
+        padding: 0 2.8rem;
+    }
+
+    .nav {
+        gap: 1rem;
+        flex-wrap: wrap;
+        font-size: 0.8rem;
+    }
+
+    .hero {
+        padding: 3rem 0 2rem;
+    }
+
+    .hero-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .photo {
+        width: 200px;
+        height: 200px;
+    }
+
+    .timeline-item {
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .timeline-date {
+        text-align: left;
+        width: auto;
+    }
+
+    .girih-border {
+        width: 30px;
+    }
+}
+
+@media (min-width: 900px) {
+    /* Scale with viewport so borders always reach near the content.
+       Content is 720px centred, so each side gap ≈ (100vw - 720px) / 2.
+       We use calc to fill most of that gap. */
+    .girih-border {
+        width: calc((100vw - 720px) / 2 - 1rem);
+        min-width: 120px;
+        max-width: 600px;
+    }
+}
