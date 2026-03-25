@@ -8,6 +8,9 @@
     --gold-bright: #e6c45c;
     --muted: #999;
     --max-width: 720px;
+    --card-bg: #111;
+    --card-bg-hover: #161616;
+    --border: #1a1a1a;
 }
 
 *, *::before, *::after {
@@ -78,12 +81,18 @@ a:hover {
 /* ── Navigation ─────────────────────────────────── */
 
 .nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     display: flex;
     justify-content: center;
     gap: 1.8rem;
-    padding: 1.5rem 0;
+    padding: 1.2rem 0;
     font-size: 0.9rem;
     letter-spacing: 0.03em;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid #222;
 }
 
@@ -91,10 +100,37 @@ a:hover {
     color: var(--muted);
     text-transform: uppercase;
     font-weight: 500;
+    position: relative;
+    padding-bottom: 2px;
+    transition: color 0.25s;
+}
+
+.nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1.5px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
 }
 
 .nav a:hover {
     color: var(--gold);
+}
+
+.nav a:hover::after {
+    transform: scaleX(1);
+}
+
+.nav a.active {
+    color: var(--gold);
+}
+
+.nav a.active::after {
+    transform: scaleX(1);
 }
 
 /* ── Hero ───────────────────────────────────────── */
@@ -117,6 +153,11 @@ a:hover {
     object-fit: cover;
     object-position: center 12%;
     flex-shrink: 0;
+    transition: border-color 0.4s;
+}
+
+.photo:hover {
+    border-color: var(--gold);
 }
 
 h1 {
@@ -129,7 +170,7 @@ h1 {
 .tagline {
     color: var(--gold);
     font-size: 1.15rem;
-    margin-top: 0.4rem;
+    margin-top: 0.5rem;
     font-weight: 500;
 }
 
@@ -142,8 +183,8 @@ h1 {
 /* ── Sections ───────────────────────────────────── */
 
 .section {
-    padding: 3rem 0;
-    border-top: 1px solid #1a1a1a;
+    padding: 3.5rem 0;
+    border-top: 1px solid var(--border);
 }
 
 h2 {
@@ -173,9 +214,16 @@ h2 {
 
 .research-card {
     padding: 1.5rem;
-    background: #111;
+    background: var(--card-bg);
     border-left: 3px solid var(--gold-dim);
-    border-radius: 0 4px 4px 0;
+    border-radius: 0 6px 6px 0;
+    transition: background 0.3s, border-color 0.3s, transform 0.3s;
+}
+
+.research-card:hover {
+    background: var(--card-bg-hover);
+    border-left-color: var(--gold);
+    transform: translateX(4px);
 }
 
 .research-card h3 {
@@ -196,13 +244,20 @@ h2 {
 .pub-list {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 0;
 }
 
 .pub {
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
+    padding: 0.9rem 1rem;
+    border-radius: 6px;
+    transition: background 0.25s;
+}
+
+.pub:hover {
+    background: var(--card-bg);
 }
 
 .pub-title {
@@ -218,24 +273,59 @@ h2 {
 /* ── Timeline ───────────────────────────────────── */
 
 .timeline {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1.4rem;
+    padding-left: 0;
+}
+
+/* Vertical connecting line */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 5.1rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold-dim), var(--border));
 }
 
 .timeline-item {
     display: flex;
     gap: 1.5rem;
     align-items: baseline;
+    position: relative;
+}
+
+/* Dot on the timeline */
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 4.85rem;
+    top: 0.55rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold-dim);
+    transition: background 0.25s;
+}
+
+.timeline-item:hover::before {
+    background: var(--gold);
 }
 
 .timeline-date {
     flex-shrink: 0;
-    width: 5.5rem;
+    width: 4.2rem;
     font-size: 0.85rem;
     color: var(--gold-dim);
     font-variant-numeric: tabular-nums;
     text-align: right;
+}
+
+.timeline-content {
+    padding-left: 1rem;
 }
 
 .timeline-item strong {
@@ -253,6 +343,10 @@ h2 {
     font-size: 1.05rem;
 }
 
+.contact-links a {
+    transition: color 0.2s;
+}
+
 .sep {
     color: #333;
     margin: 0 0.3rem;
@@ -262,7 +356,7 @@ h2 {
 
 footer {
     padding: 3rem 0 2rem;
-    border-top: 1px solid #1a1a1a;
+    border-top: 1px solid var(--border);
     text-align: center;
     color: #444;
     font-size: 0.8rem;
@@ -304,6 +398,14 @@ footer {
         height: 200px;
     }
 
+    .timeline::before {
+        display: none;
+    }
+
+    .timeline-item::before {
+        display: none;
+    }
+
     .timeline-item {
         flex-direction: column;
         gap: 0.2rem;
@@ -312,6 +414,14 @@ footer {
     .timeline-date {
         text-align: left;
         width: auto;
+    }
+
+    .timeline-content {
+        padding-left: 0;
+    }
+
+    .research-card:hover {
+        transform: none;
     }
 
     .girih-border {

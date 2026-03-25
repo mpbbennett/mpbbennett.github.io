@@ -103,44 +103,44 @@
         <div class="timeline">
             <div class="timeline-item">
                 <span class="timeline-date">2025–</span>
-                <div>
+                <div class="timeline-content">
                     <strong>Winter Fellow</strong>, Centre for the Governance of AI (GovAI), Oxford
                 </div>
             </div>
             <div class="timeline-item">
                 <span class="timeline-date">2025</span>
-                <div>
+                <div class="timeline-content">
                     <strong>SPAR Fellow</strong> — Research on AI safety reporting triggers
                 </div>
             </div>
             <div class="timeline-item">
                 <span class="timeline-date">2019–2024</span>
-                <div>
+                <div class="timeline-content">
                     <strong>Lecturer in Philosophy</strong>, Nottingham Trent University
                 </div>
             </div>
             <div class="timeline-item">
                 <span class="timeline-date">2017–2019</span>
-                <div>
+                <div class="timeline-content">
                     <strong>Postdoctoral Researcher</strong>, Utrecht University<br>
                     <span class="timeline-detail">Project: "Private Property and Political Power in a Liberal-Democratic Society"</span>
                 </div>
             </div>
             <div class="timeline-item">
                 <span class="timeline-date">2017</span>
-                <div>
+                <div class="timeline-content">
                     <strong>PhD</strong>, University of York — <span class="timeline-detail">"Democracy and its Relationship with the Market"</span>
                 </div>
             </div>
             <div class="timeline-item">
                 <span class="timeline-date">2012</span>
-                <div>
+                <div class="timeline-content">
                     <strong>MSc Political Theory</strong>, University of Oxford
                 </div>
             </div>
             <div class="timeline-item">
                 <span class="timeline-date">2011</span>
-                <div>
+                <div class="timeline-content">
                     <strong>BA History</strong>, University of Oxford
                 </div>
             </div>
@@ -170,5 +170,30 @@
 </div><!-- .page-shell -->
 
 <script src="girih.js"></script>
+<script>
+// Highlight active nav link based on scroll position
+(function () {
+    const navLinks = document.querySelectorAll('.nav a');
+    const sections = [];
+    navLinks.forEach(function (link) {
+        const id = link.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) sections.push({ id: id, el: el, link: link });
+    });
+
+    function update() {
+        const scrollY = window.scrollY + 120;
+        let current = sections[0];
+        for (const s of sections) {
+            if (s.el.offsetTop <= scrollY) current = s;
+        }
+        navLinks.forEach(function (l) { l.classList.remove('active'); });
+        if (current) current.link.classList.add('active');
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+})();
+</script>
 </body>
 </html>
