@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refined Border Candidates</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            color: #e8e8e8;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        .intro {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 3rem 2rem 2rem;
+        }
+        .intro h1 {
+            font-size: 1.4rem;
+            color: #c9a84c;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.8rem;
+        }
+        .intro p {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Each candidate is a full-width simulation of the actual site */
+        .candidate {
+            position: relative;
+            min-height: 800px;
+            margin-bottom: 4rem;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .candidate canvas.border-left,
+        .candidate canvas.border-right {
+            position: absolute;
+            top: 0;
+            width: calc((100% - 720px) / 2 - 1rem);
+            min-width: 100px;
+            max-width: 500px;
+            height: 100%;
+            pointer-events: none;
+        }
+        .candidate canvas.border-left { left: 0; }
+        .candidate canvas.border-right { right: 0; }
+
+        .candidate .mock-content {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .candidate-label {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #c9a84c;
+            background: rgba(201, 168, 76, 0.08);
+            padding: 0.3rem 0.8rem;
+            border-radius: 3px;
+            margin-bottom: 1.5rem;
+        }
+
+        .candidate-desc {
+            font-size: 0.85rem;
+            color: #888;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        /* Mock site content for context */
+        .mock-nav {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #1a1a1a;
+            margin-bottom: 2rem;
+        }
+        .mock-nav span {
+            font-size: 0.8rem;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .mock-nav span.active { color: #c9a84c; }
+
+        .mock-h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .mock-tagline {
+            color: #c9a84c;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+        .mock-section-title {
+            font-size: 1.2rem;
+            color: #c9a84c;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem;
+        }
+        .mock-text {
+            color: #999;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        .mock-card {
+            padding: 1.2rem;
+            background: #111;
+            border-left: 3px solid #6b5326;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 1rem;
+        }
+        .mock-card h3 {
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+        .mock-card p {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        @media (max-width: 900px) {
+            .candidate canvas.border-left,
+            .candidate canvas.border-right {
+                width: 40px;
+                min-width: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="intro">
+    <h1>Refined Border Candidates</h1>
+    <p>Each section below shows a different border treatment applied to a mock-up of the actual site layout. Scroll through to compare how each pattern feels alongside real content. The borders use the same left-edge-fade rendering as the live site.</p>
+</div>
+
+<!-- Candidate A: Current design (baseline) -->
+<div class="candidate" id="cand-a">
+    <canvas class="border-left" id="a-left"></canvas>
+    <canvas class="border-right" id="a-right"></canvas>
+    <div class="mock-content">
+        <span class="candidate-label">A &mdash; Current: Classic Gold Girih</span>
+        <p class="candidate-desc">The existing design. 10-pointed stars, gold on black, probabilistic edge fade. Warm and scholarly.</p>
+        <div class="mock-nav">
+            <span class="active">About</span><span>Research</span><span>Publications</span><span>Background</span><span>Contact</span>
+        </div>
+        <h1 class="mock-h1">Michael Bennett</h1>
+        <p class="mock-tagline">AI Governance Researcher</p>
+        <p class="mock-text">I work on the governance and politics of artificial intelligence: how we can build institutions and policies that reduce catastrophic risks from advanced AI.</p>
+        <h2 class="mock-section-title">Research Interests</h2>
+        <div class="mock-card"><h3>AI Safety Regulation</h3><p>How should governments oversee frontier AI development?</p></div>
+        <div class="mock-card"><h3>Political Economy of AI</h3><p>AI-driven labour displacement and its political consequences.</p></div>
+        <div class="mock-card"><h3>Power &amp; Institutions</h3><p>Trade-offs in governing powerful actors.</p></div>
+    </div>
+</div>
+
+<!-- Candidate B: Glow variant -->
+<div class="candidate" id="cand-b">
+    <canvas class="border-left" id="b-left"></canvas>
+    <canvas class="border-right" id="b-right"></canvas>
+    <div class="mock-content">
+        <span class="candidate-label">B &mdash; Gold Glow (Neon Bloom)</span>
+        <p class="candidate-desc">Same geometry but with a luminous bloom effect. Lines radiate light outward. More dramatic, slightly futuristic.</p>
+        <div class="mock-nav">
+            <span class="active">About</span><span>Research</span><span>Publications</span><span>Background</span><span>Contact</span>
+        </div>
+        <h1 class="mock-h1">Michael Bennett</h1>
+        <p class="mock-tagline">AI Governance Researcher</p>
+        <p class="mock-text">I work on the governance and politics of artificial intelligence: how we can build institutions and policies that reduce catastrophic risks from advanced AI.</p>
+        <h2 class="mock-section-title">Research Interests</h2>
+        <div class="mock-card"><h3>AI Safety Regulation</h3><p>How should governments oversee frontier AI development?</p></div>
+        <div class="mock-card"><h3>Political Economy of AI</h3><p>AI-driven labour displacement and its political consequences.</p></div>
+    </div>
+</div>
+
+<!-- Candidate C: Layered depth -->
+<div class="candidate" id="cand-c">
+    <canvas class="border-left" id="c-left"></canvas>
+    <canvas class="border-right" id="c-right"></canvas>
+    <div class="mock-content">
+        <span class="candidate-label">C &mdash; Layered Depth (Three Geometries)</span>
+        <p class="candidate-desc">Three layers of different star patterns at different scales and opacities. Creates an illusion of depth, like looking through stacked carved screens.</p>
+        <div class="mock-nav">
+            <span class="active">About</span><span>Research</span><span>Publications</span><span>Background</span><span>Contact</span>
+        </div>
+        <h1 class="mock-h1">Michael Bennett</h1>
+        <p class="mock-tagline">AI Governance Researcher</p>
+        <p class="mock-text">I work on the governance and politics of artificial intelligence: how we can build institutions and policies that reduce catastrophic risks from advanced AI.</p>
+        <h2 class="mock-section-title">Research Interests</h2>
+        <div class="mock-card"><h3>AI Safety Regulation</h3><p>How should governments oversee frontier AI development?</p></div>
+        <div class="mock-card"><h3>Political Economy of AI</h3><p>AI-driven labour displacement and its political consequences.</p></div>
+    </div>
+</div>
+
+<!-- Candidate D: Calligraphic -->
+<div class="candidate" id="cand-d">
+    <canvas class="border-left" id="d-left"></canvas>
+    <canvas class="border-right" id="d-right"></canvas>
+    <div class="mock-content">
+        <span class="candidate-label">D &mdash; Calligraphic Weight</span>
+        <p class="candidate-desc">Line thickness varies with stroke angle, as if drawn with a broad-nib pen. Creates organic, manuscript-like quality within the geometric framework.</p>
+        <div class="mock-nav">
+            <span class="active">About</span><span>Research</span><span>Publications</span><span>Background</span><span>Contact</span>
+        </div>
+        <h1 class="mock-h1">Michael Bennett</h1>
+        <p class="mock-tagline">AI Governance Researcher</p>
+        <p class="mock-text">I work on the governance and politics of artificial intelligence: how we can build institutions and policies that reduce catastrophic risks from advanced AI.</p>
+        <h2 class="mock-section-title">Research Interests</h2>
+        <div class="mock-card"><h3>AI Safety Regulation</h3><p>How should governments oversee frontier AI development?</p></div>
+        <div class="mock-card"><h3>Political Economy of AI</h3><p>AI-driven labour displacement and its political consequences.</p></div>
+    </div>
+</div>
+
+<!-- Candidate E: Colour shift -->
+<div class="candidate" id="cand-e">
+    <canvas class="border-left" id="e-left"></canvas>
+    <canvas class="border-right" id="e-right"></canvas>
+    <div class="mock-content">
+        <span class="candidate-label">E &mdash; Vertical Colour Gradient</span>
+        <p class="candidate-desc">Hue shifts from warm gold at the top to cool teal at the bottom. Adds subtle visual interest as you scroll down the page.</p>
+        <div class="mock-nav">
+            <span class="active">About</span><span>Research</span><span>Publications</span><span>Background</span><span>Contact</span>
+        </div>
+        <h1 class="mock-h1">Michael Bennett</h1>
+        <p class="mock-tagline">AI Governance Researcher</p>
+        <p class="mock-text">I work on the governance and politics of artificial intelligence: how we can build institutions and policies that reduce catastrophic risks from advanced AI.</p>
+        <h2 class="mock-section-title">Research Interests</h2>
+        <div class="mock-card"><h3>AI Safety Regulation</h3><p>How should governments oversee frontier AI development?</p></div>
+        <div class="mock-card"><h3>Political Economy of AI</h3><p>AI-driven labour displacement and its political consequences.</p></div>
+    </div>
+</div>
+
+<!-- Candidate F: Directional light -->
+<div class="candidate" id="cand-f">
+    <canvas class="border-left" id="f-left"></canvas>
+    <canvas class="border-right" id="f-right"></canvas>
+    <div class="mock-content">
+        <span class="candidate-label">F &mdash; Directional Light</span>
+        <p class="candidate-desc">Pattern appears lit from above. Brighter and thicker lines at top, fading to shadow at bottom. Adds subtle three-dimensionality.</p>
+        <div class="mock-nav">
+            <span class="active">About</span><span>Research</span><span>Publications</span><span>Background</span><span>Contact</span>
+        </div>
+        <h1 class="mock-h1">Michael Bennett</h1>
+        <p class="mock-tagline">AI Governance Researcher</p>
+        <p class="mock-text">I work on the governance and politics of artificial intelligence: how we can build institutions and policies that reduce catastrophic risks from advanced AI.</p>
+        <h2 class="mock-section-title">Research Interests</h2>
+        <div class="mock-card"><h3>AI Safety Regulation</h3><p>How should governments oversee frontier AI development?</p></div>
+        <div class="mock-card"><h3>Political Economy of AI</h3><p>AI-driven labour displacement and its political consequences.</p></div>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    const TAU = Math.PI * 2;
+
+    function mulberry32(seed) {
+        return function () {
+            seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+            let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+            t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+            return ((t ^ t >>> 14) >>> 0) / 4294967296;
+        };
+    }
+
+    function starMotif(cx, cy, outerR, innerR, sides) {
+        const step = TAU / sides;
+        const lines = [];
+        const outerPts = [], innerPts = [];
+        for (let i = 0; i < sides; i++) {
+            const aO = step * i - Math.PI / 2;
+            const aI = step * (i + 0.5) - Math.PI / 2;
+            outerPts.push([cx + outerR * Math.cos(aO), cy + outerR * Math.sin(aO)]);
+            innerPts.push([cx + innerR * Math.cos(aI), cy + innerR * Math.sin(aI)]);
+        }
+        for (let i = 0; i < sides; i++) {
+            const next = (i + 1) % sides;
+            lines.push([outerPts[i][0], outerPts[i][1], innerPts[i][0], innerPts[i][1]]);
+            lines.push([innerPts[i][0], innerPts[i][1], outerPts[next][0], outerPts[next][1]]);
+        }
+        for (let i = 0; i < sides; i++) {
+            const next = (i + 1) % sides;
+            lines.push([innerPts[i][0], innerPts[i][1], innerPts[next][0], innerPts[next][1]]);
+        }
+        for (let i = 0; i < Math.floor(sides / 2); i++) {
+            const a = outerPts[i], b = outerPts[i + Math.floor(sides / 2)];
+            lines.push([a[0], a[1], b[0], b[1]]);
+        }
+        return lines;
+    }
+
+    function generateGrid(w, h, cell, sides) {
+        const outerR = cell * 0.48, innerR = cell * 0.28;
+        const all = [];
+        const cols = Math.ceil(w / cell) + 4;
+        const rows = Math.ceil(h / (cell * 0.85)) + 4;
+        for (let row = -2; row < rows; row++) {
+            for (let col = -2; col < cols; col++) {
+                const stagger = (row % 2 === 0) ? 0 : cell * 0.5;
+                all.push(...starMotif(col * cell + stagger, row * cell * 0.85, outerR, innerR, sides));
+            }
+        }
+        return all;
+    }
+
+    function setupCanvas(id) {
+        const canvas = document.getElementById(id);
+        if (!canvas) return null;
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        if (w < 1 || h < 1) return null;
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        const ctx = canvas.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.lineCap = 'round';
+        return { ctx, w, h };
+    }
+
+    // Border renderer with side awareness
+    function drawBorder(id, side, renderFn) {
+        const s = setupCanvas(id);
+        if (!s) return;
+        renderFn(s.ctx, s.w, s.h, side);
+    }
+
+    function edgeProb(mx, w, side) {
+        let keep = side === 'left' ? (1 - mx / w) : (mx / w);
+        return Math.pow(Math.max(0, Math.min(1, keep)), 1.2);
+    }
+
+    // ── A: Classic Gold ──
+    function renderA(ctx, w, h, side) {
+        const lines = generateGrid(w, h, 52, 10);
+        const rand = mulberry32(side === 'left' ? 12345 : 67890);
+        ctx.lineWidth = 0.7;
+
+        for (const seg of lines) {
+            const mx = (seg[0] + seg[2]) / 2;
+            const kp = edgeProb(mx, w, side);
+            if (rand() > kp) continue;
+
+            ctx.strokeStyle = kp > 0.5 ? '#c9a84c' : '#6b5326';
+            ctx.globalAlpha = 0.55 + kp * 0.35;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+    }
+
+    drawBorder('a-left', 'left', renderA);
+    drawBorder('a-right', 'right', renderA);
+
+    // ── B: Gold Glow ──
+    function renderB(ctx, w, h, side) {
+        const lines = generateGrid(w, h, 52, 10);
+        const rand = mulberry32(side === 'left' ? 12345 : 67890);
+
+        const kept = [];
+        for (const seg of lines) {
+            const mx = (seg[0] + seg[2]) / 2;
+            const kp = edgeProb(mx, w, side);
+            if (rand() < kp) kept.push({ seg, kp });
+        }
+
+        const layers = [
+            { color: '#c9a84c', width: 7, alpha: 0.03 },
+            { color: '#c9a84c', width: 4, alpha: 0.07 },
+            { color: '#e6c45c', width: 2, alpha: 0.16 },
+            { color: '#f0d878', width: 1, alpha: 0.3 },
+            { color: '#fff5d4', width: 0.4, alpha: 0.65 },
+        ];
+
+        for (const layer of layers) {
+            ctx.strokeStyle = layer.color;
+            ctx.lineWidth = layer.width;
+            for (const { seg, kp } of kept) {
+                ctx.globalAlpha = layer.alpha * (0.3 + kp * 0.7);
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+        }
+        ctx.globalAlpha = 1;
+    }
+
+    drawBorder('b-left', 'left', renderB);
+    drawBorder('b-right', 'right', renderB);
+
+    // ── C: Layered Depth ──
+    function renderC(ctx, w, h, side) {
+        const rand = mulberry32(side === 'left' ? 12345 : 67890);
+
+        const layerDefs = [
+            { cell: 72, sides: 12, color: '#1a1508', alpha: 0.25, lw: 0.3 },
+            { cell: 52, sides: 10, color: '#6b5326', alpha: 0.45, lw: 0.5 },
+            { cell: 34, sides: 8,  color: '#c9a84c', alpha: 0.65, lw: 0.65 },
+        ];
+
+        for (const ld of layerDefs) {
+            const lines = generateGrid(w, h, ld.cell, ld.sides);
+            ctx.lineWidth = ld.lw;
+            ctx.strokeStyle = ld.color;
+
+            for (const seg of lines) {
+                const mx = (seg[0] + seg[2]) / 2;
+                const kp = edgeProb(mx, w, side);
+                if (rand() > kp * 0.75) continue;
+
+                ctx.globalAlpha = ld.alpha * (0.4 + kp * 0.6);
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+        }
+        ctx.globalAlpha = 1;
+    }
+
+    drawBorder('c-left', 'left', renderC);
+    drawBorder('c-right', 'right', renderC);
+
+    // ── D: Calligraphic ──
+    function renderD(ctx, w, h, side) {
+        const lines = generateGrid(w, h, 52, 10);
+        const rand = mulberry32(side === 'left' ? 12345 : 67890);
+
+        for (const seg of lines) {
+            const mx = (seg[0] + seg[2]) / 2;
+            const kp = edgeProb(mx, w, side);
+            if (rand() > kp) continue;
+
+            const angle = Math.atan2(seg[3] - seg[1], seg[2] - seg[0]);
+            const nibEffect = Math.abs(Math.sin(angle * 2));
+            const lw = 0.2 + nibEffect * 1.8;
+
+            ctx.lineWidth = lw;
+            ctx.strokeStyle = kp > 0.5 ? '#c9a84c' : '#8a6f2e';
+            ctx.globalAlpha = (0.4 + kp * 0.3) * (0.6 + nibEffect * 0.4);
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+    }
+
+    drawBorder('d-left', 'left', renderD);
+    drawBorder('d-right', 'right', renderD);
+
+    // ── E: Colour Shift ──
+    function renderE(ctx, w, h, side) {
+        const lines = generateGrid(w, h, 52, 10);
+        const rand = mulberry32(side === 'left' ? 12345 : 67890);
+        ctx.lineWidth = 0.7;
+
+        for (const seg of lines) {
+            const mx = (seg[0] + seg[2]) / 2;
+            const my = (seg[1] + seg[3]) / 2;
+            const kp = edgeProb(mx, w, side);
+            if (rand() > kp) continue;
+
+            const yPct = my / h;
+            const hue = 42 + yPct * 140; // gold -> teal
+            const sat = 40 + kp * 20;
+            const lit = 25 + kp * 30;
+
+            ctx.strokeStyle = `hsl(${hue}, ${sat}%, ${lit}%)`;
+            ctx.globalAlpha = 0.5 + kp * 0.4;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+    }
+
+    drawBorder('e-left', 'left', renderE);
+    drawBorder('e-right', 'right', renderE);
+
+    // ── F: Directional Light ──
+    function renderF(ctx, w, h, side) {
+        const lines = generateGrid(w, h, 52, 10);
+        const rand = mulberry32(side === 'left' ? 12345 : 67890);
+
+        for (const seg of lines) {
+            const mx = (seg[0] + seg[2]) / 2;
+            const my = (seg[1] + seg[3]) / 2;
+            const kp = edgeProb(mx, w, side);
+            if (rand() > kp) continue;
+
+            // Light from top
+            const yLit = 1 - (my / h);
+            const litCurve = Math.pow(yLit, 1.3);
+            const brightness = 0.3 + litCurve * 0.7;
+
+            const hue = 40 + (1 - litCurve) * 8;
+            const sat = 45 + litCurve * 15;
+            const lit = 18 + brightness * 35;
+
+            ctx.strokeStyle = `hsl(${hue}, ${sat}%, ${lit}%)`;
+            ctx.globalAlpha = (0.3 + brightness * 0.5) * (0.4 + kp * 0.6);
+            ctx.lineWidth = 0.3 + brightness * 0.6;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+    }
+
+    drawBorder('f-left', 'left', renderF);
+    drawBorder('f-right', 'right', renderF);
+
+})();
+</script>
+
+</body>
+</html>
