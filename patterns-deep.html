@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Pattern Exploration</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #060606;
+            color: #e8e8e8;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        .hero-pattern {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .hero-pattern canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at center, transparent 20%, rgba(6,6,6,0.85) 70%);
+            z-index: 2;
+        }
+        .hero-overlay h1 {
+            font-size: 2.2rem;
+            color: #c9a84c;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+        .hero-overlay p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .panels {
+            padding: 3rem 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .panel-row {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .panel-row.stacked {
+            flex-direction: column;
+        }
+
+        .panel {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .panel-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #555;
+            margin-bottom: 0.8rem;
+        }
+
+        .panel canvas {
+            width: 100%;
+            height: 300px;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .wide-canvas {
+            width: 100%;
+            height: 200px;
+            display: block;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        .tall-canvas {
+            width: 100%;
+            height: 600px;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .strip-row {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 3rem;
+        }
+        .strip-row canvas {
+            flex: 1;
+            height: 120px;
+            display: block;
+            border-radius: 2px;
+        }
+
+        h2.section-title {
+            font-size: 1.1rem;
+            color: #c9a84c;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 0.6rem;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+        }
+
+        .note {
+            font-size: 0.8rem;
+            color: #555;
+            margin-top: 0.4rem;
+            line-height: 1.5;
+        }
+
+        /* Interactive controls */
+        .controls {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .controls label {
+            font-size: 0.8rem;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .controls input[type="range"] {
+            width: 120px;
+            accent-color: #c9a84c;
+        }
+        .controls select {
+            background: #111;
+            color: #ccc;
+            border: 1px solid #333;
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 800px) {
+            .panel-row { flex-direction: column; }
+            .strip-row { flex-wrap: wrap; }
+            .strip-row canvas { min-width: 80px; height: 80px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- Full-viewport animated pattern hero             -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="hero-pattern">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-overlay">
+        <h1>Deep Exploration</h1>
+        <p>Pushing the girih pattern system further</p>
+    </div>
+</div>
+
+<div class="panels">
+
+    <!-- ════════════════════════════════════════════ -->
+    <h2 class="section-title">Colour Temperature Study</h2>
+    <p class="note">The same 10-pointed star pattern rendered across a temperature spectrum. Which feels right for an academic governance site?</p>
+
+    <div class="strip-row">
+        <canvas id="temp-0"></canvas>
+        <canvas id="temp-1"></canvas>
+        <canvas id="temp-2"></canvas>
+        <canvas id="temp-3"></canvas>
+        <canvas id="temp-4"></canvas>
+        <canvas id="temp-5"></canvas>
+        <canvas id="temp-6"></canvas>
+        <canvas id="temp-7"></canvas>
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <h2 class="section-title">Line Weight &amp; Opacity Matrix</h2>
+    <p class="note">Exploring how line weight and opacity interact. Rows = weight (0.3, 0.6, 1.0, 1.8). Columns = opacity (0.3, 0.5, 0.7, 0.9).</p>
+
+    <div class="strip-row" id="weight-row-0"></div>
+    <div class="strip-row" id="weight-row-1"></div>
+    <div class="strip-row" id="weight-row-2"></div>
+    <div class="strip-row" id="weight-row-3"></div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <h2 class="section-title">Interlocking Geometries</h2>
+    <p class="note">Two distinct tilings overlaid. The visual complexity emerges from interference, not from either pattern alone.</p>
+
+    <div class="panel-row">
+        <div class="panel">
+            <p class="panel-label">6 + 10 pointed (gold + teal)</p>
+            <canvas id="interlock-a" class="wide-canvas"></canvas>
+        </div>
+    </div>
+    <div class="panel-row">
+        <div class="panel">
+            <p class="panel-label">8 + 8 (same geometry, rotated 22.5&deg;, two colours)</p>
+            <canvas id="interlock-b" class="wide-canvas"></canvas>
+        </div>
+    </div>
+    <div class="panel-row">
+        <div class="panel">
+            <p class="panel-label">5 + 10 (Penrose-adjacent: 5-fold in 10-fold lattice)</p>
+            <canvas id="interlock-c" class="wide-canvas"></canvas>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <h2 class="section-title">Depth &amp; Atmosphere</h2>
+    <p class="note">Using colour, blur, and scale to create the illusion of depth. Multiple layers from background to foreground.</p>
+
+    <div class="panel-row">
+        <div class="panel">
+            <p class="panel-label">Three-layer depth (far = dim/small, near = bright/large)</p>
+            <canvas id="depth-a" class="tall-canvas"></canvas>
+        </div>
+        <div class="panel">
+            <p class="panel-label">Fog/mist: pattern emerges from darkness</p>
+            <canvas id="depth-b" class="tall-canvas"></canvas>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <h2 class="section-title">Interactive Pattern</h2>
+    <p class="note">Adjust parameters in real time to find the sweet spot.</p>
+
+    <div class="controls">
+        <label>Sides: <select id="ctl-sides">
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="8">8</option>
+            <option value="10" selected>10</option>
+            <option value="12">12</option>
+            <option value="16">16</option>
+            <option value="20">20</option>
+        </select></label>
+        <label>Cell size: <input type="range" id="ctl-cell" min="15" max="100" value="52"> <span id="ctl-cell-val">52</span></label>
+        <label>Line weight: <input type="range" id="ctl-weight" min="1" max="30" value="7" step="1"> <span id="ctl-weight-val">0.7</span></label>
+        <label>Density: <input type="range" id="ctl-density" min="10" max="100" value="70"> <span id="ctl-density-val">70%</span></label>
+        <label>Hue: <input type="range" id="ctl-hue" min="0" max="360" value="45"> <span id="ctl-hue-val">45</span></label>
+    </div>
+    <canvas id="interactive" class="tall-canvas"></canvas>
+
+    <!-- ════════════════════════════════════════════ -->
+    <h2 class="section-title">Candidate Border Designs</h2>
+    <p class="note">Full-height border strips at actual site proportions. Each is 180px wide, simulating how the decoration would look alongside page content.</p>
+
+    <div style="display: flex; gap: 1rem; margin-bottom: 2rem; height: 700px;">
+        <div style="width: 180px; flex-shrink: 0; position: relative;">
+            <canvas id="cand-a" style="width: 180px; height: 700px; display: block; border-radius: 4px;"></canvas>
+            <p class="note" style="margin-top: 0.3rem; text-align: center;">A: Classic gold</p>
+        </div>
+        <div style="width: 180px; flex-shrink: 0; position: relative;">
+            <canvas id="cand-b" style="width: 180px; height: 700px; display: block; border-radius: 4px;"></canvas>
+            <p class="note" style="margin-top: 0.3rem; text-align: center;">B: Gold glow</p>
+        </div>
+        <div style="width: 180px; flex-shrink: 0; position: relative;">
+            <canvas id="cand-c" style="width: 180px; height: 700px; display: block; border-radius: 4px;"></canvas>
+            <p class="note" style="margin-top: 0.3rem; text-align: center;">C: Nested depth</p>
+        </div>
+        <div style="width: 180px; flex-shrink: 0; position: relative;">
+            <canvas id="cand-d" style="width: 180px; height: 700px; display: block; border-radius: 4px;"></canvas>
+            <p class="note" style="margin-top: 0.3rem; text-align: center;">D: Dual 8+12</p>
+        </div>
+        <div style="width: 180px; flex-shrink: 0; position: relative;">
+            <canvas id="cand-e" style="width: 180px; height: 700px; display: block; border-radius: 4px;"></canvas>
+            <p class="note" style="margin-top: 0.3rem; text-align: center;">E: Colour shift</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    const TAU = Math.PI * 2;
+
+    function mulberry32(seed) {
+        return function () {
+            seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+            let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+            t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+            return ((t ^ t >>> 14) >>> 0) / 4294967296;
+        };
+    }
+
+    function starMotif(cx, cy, outerR, innerR, sides) {
+        const step = TAU / sides;
+        const lines = [];
+        const outerPts = [];
+        const innerPts = [];
+        for (let i = 0; i < sides; i++) {
+            const aO = step * i - Math.PI / 2;
+            const aI = step * (i + 0.5) - Math.PI / 2;
+            outerPts.push([cx + outerR * Math.cos(aO), cy + outerR * Math.sin(aO)]);
+            innerPts.push([cx + innerR * Math.cos(aI), cy + innerR * Math.sin(aI)]);
+        }
+        for (let i = 0; i < sides; i++) {
+            const next = (i + 1) % sides;
+            lines.push([outerPts[i][0], outerPts[i][1], innerPts[i][0], innerPts[i][1]]);
+            lines.push([innerPts[i][0], innerPts[i][1], outerPts[next][0], outerPts[next][1]]);
+        }
+        for (let i = 0; i < sides; i++) {
+            const next = (i + 1) % sides;
+            lines.push([innerPts[i][0], innerPts[i][1], innerPts[next][0], innerPts[next][1]]);
+        }
+        for (let i = 0; i < Math.floor(sides / 2); i++) {
+            const a = outerPts[i], b = outerPts[i + Math.floor(sides / 2)];
+            lines.push([a[0], a[1], b[0], b[1]]);
+        }
+        return lines;
+    }
+
+    function generateGrid(w, h, cell, sides) {
+        const outerR = cell * 0.48, innerR = cell * 0.28;
+        const all = [];
+        const cols = Math.ceil(w / cell) + 4;
+        const rows = Math.ceil(h / (cell * 0.85)) + 4;
+        for (let row = -2; row < rows; row++) {
+            for (let col = -2; col < cols; col++) {
+                const stagger = (row % 2 === 0) ? 0 : cell * 0.5;
+                all.push(...starMotif(col * cell + stagger, row * cell * 0.85, outerR, innerR, sides));
+            }
+        }
+        return all;
+    }
+
+    function setupCanvas(el) {
+        if (typeof el === 'string') el = document.getElementById(el);
+        if (!el) return null;
+        const dpr = window.devicePixelRatio || 1;
+        const rect = el.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        if (w < 1 || h < 1) return null;
+        el.width = Math.round(w * dpr);
+        el.height = Math.round(h * dpr);
+        const ctx = el.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.lineCap = 'round';
+        return { canvas: el, ctx, w, h };
+    }
+
+    // ════════════════════════════════════════════════
+    // Hero: Full-viewport animated concentric ripple
+    // ════════════════════════════════════════════════
+    (function () {
+        const canvas = document.getElementById('hero-canvas');
+        if (!canvas) return;
+        const dpr = window.devicePixelRatio || 1;
+
+        function resize() {
+            const w = window.innerWidth, h = window.innerHeight;
+            canvas.width = Math.round(w * dpr);
+            canvas.height = Math.round(h * dpr);
+            canvas.style.width = w + 'px';
+            canvas.style.height = h + 'px';
+        }
+        resize();
+
+        const lines = generateGrid(window.innerWidth, window.innerHeight, 46, 10);
+        const rand = mulberry32(98765);
+        const kept = [];
+        for (const seg of lines) {
+            if (rand() < 0.7) kept.push(seg);
+        }
+
+        function frame(t) {
+            const w = canvas.width / dpr, h = canvas.height / dpr;
+            const ctx = canvas.getContext('2d');
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.clearRect(0, 0, w, h);
+            ctx.lineCap = 'round';
+
+            for (const seg of kept) {
+                const mx = (seg[0] + seg[2]) / 2;
+                const my = (seg[1] + seg[3]) / 2;
+                const dist = Math.sqrt((mx - w/2) ** 2 + (my - h/2) ** 2);
+                const wave = 0.5 + 0.5 * Math.sin(dist * 0.015 - t * 0.0008);
+                const pulse = 0.5 + 0.5 * Math.sin(t * 0.0005);
+
+                const alpha = 0.05 + wave * 0.35 * pulse;
+                const hue = 40 + wave * 15;
+                const lit = 25 + wave * 30;
+
+                ctx.strokeStyle = `hsl(${hue}, 55%, ${lit}%)`;
+                ctx.globalAlpha = alpha;
+                ctx.lineWidth = 0.5 + wave * 0.4;
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+            ctx.globalAlpha = 1;
+            requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+        window.addEventListener('resize', resize);
+    })();
+
+    // ════════════════════════════════════════════════
+    // Colour Temperature Strip
+    // ════════════════════════════════════════════════
+    (function () {
+        const temps = [
+            { hue: 220, sat: 50, name: 'cool blue' },
+            { hue: 195, sat: 45, name: 'steel' },
+            { hue: 160, sat: 40, name: 'teal' },
+            { hue: 120, sat: 35, name: 'sage' },
+            { hue: 45,  sat: 55, name: 'gold' },
+            { hue: 30,  sat: 55, name: 'amber' },
+            { hue: 15,  sat: 50, name: 'copper' },
+            { hue: 0,   sat: 45, name: 'rose' },
+        ];
+
+        temps.forEach((t, i) => {
+            const s = setupCanvas('temp-' + i);
+            if (!s) return;
+            const { ctx, w, h } = s;
+            const lines = generateGrid(w, h, 36, 10);
+            const rand = mulberry32(10000 + i);
+
+            ctx.lineWidth = 0.5;
+            for (const seg of lines) {
+                if (rand() > 0.65) continue;
+                const bright = `hsl(${t.hue}, ${t.sat}%, 58%)`;
+                const dim = `hsl(${t.hue}, ${t.sat - 15}%, 30%)`;
+                const r = rand();
+                ctx.strokeStyle = r > 0.5 ? bright : dim;
+                ctx.globalAlpha = 0.4 + r * 0.4;
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+            ctx.globalAlpha = 1;
+        });
+    })();
+
+    // ════════════════════════════════════════════════
+    // Weight x Opacity Matrix
+    // ════════════════════════════════════════════════
+    (function () {
+        const weights = [0.3, 0.6, 1.0, 1.8];
+        const opacities = [0.3, 0.5, 0.7, 0.9];
+
+        weights.forEach((weight, wi) => {
+            const row = document.getElementById('weight-row-' + wi);
+            if (!row) return;
+
+            opacities.forEach((opacity, oi) => {
+                const canvas = document.createElement('canvas');
+                row.appendChild(canvas);
+
+                const s = setupCanvas(canvas);
+                if (!s) return;
+                const { ctx, w, h } = s;
+                const lines = generateGrid(w, h, 40, 10);
+                const rand = mulberry32(20000 + wi * 100 + oi);
+
+                ctx.lineWidth = weight;
+                for (const seg of lines) {
+                    if (rand() > 0.7) continue;
+                    ctx.strokeStyle = '#c9a84c';
+                    ctx.globalAlpha = opacity;
+                    ctx.beginPath();
+                    ctx.moveTo(seg[0], seg[1]);
+                    ctx.lineTo(seg[2], seg[3]);
+                    ctx.stroke();
+                }
+                ctx.globalAlpha = 1;
+            });
+        });
+    })();
+
+    // ════════════════════════════════════════════════
+    // Interlocking Geometries
+    // ════════════════════════════════════════════════
+
+    // A: 6 + 10 pointed
+    (function () {
+        const s = setupCanvas('interlock-a');
+        if (!s) return;
+        const { ctx, w, h } = s;
+        const rand = mulberry32(30001);
+
+        const lines6 = generateGrid(w, h, 50, 6);
+        ctx.lineWidth = 0.5;
+        for (const seg of lines6) {
+            if (rand() > 0.6) continue;
+            ctx.strokeStyle = '#2a8a7a';
+            ctx.globalAlpha = 0.45;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+
+        const lines10 = generateGrid(w, h, 44, 10);
+        for (const seg of lines10) {
+            if (rand() > 0.55) continue;
+            ctx.strokeStyle = '#c9a84c';
+            ctx.globalAlpha = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // B: Rotated 8+8
+    (function () {
+        const s = setupCanvas('interlock-b');
+        if (!s) return;
+        const { ctx, w, h } = s;
+        const rand = mulberry32(30002);
+        const cell = 52;
+
+        // First 8-star grid (normal)
+        const lines1 = generateGrid(w, h, cell, 8);
+        ctx.lineWidth = 0.5;
+        for (const seg of lines1) {
+            if (rand() > 0.6) continue;
+            ctx.strokeStyle = '#c9a84c';
+            ctx.globalAlpha = 0.45;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+
+        // Second 8-star grid (rotated 22.5 degrees)
+        ctx.save();
+        ctx.translate(w / 2, h / 2);
+        ctx.rotate(Math.PI / 8); // 22.5 degrees
+        ctx.translate(-w / 2, -h / 2);
+
+        const lines2 = generateGrid(w * 1.5, h * 1.5, cell, 8);
+        for (const seg of lines2) {
+            if (rand() > 0.55) continue;
+            ctx.strokeStyle = '#8a4a6a';
+            ctx.globalAlpha = 0.4;
+            ctx.beginPath();
+            ctx.moveTo(seg[0] - w * 0.25, seg[1] - h * 0.25);
+            ctx.lineTo(seg[2] - w * 0.25, seg[3] - h * 0.25);
+            ctx.stroke();
+        }
+        ctx.restore();
+        ctx.globalAlpha = 1;
+    })();
+
+    // C: 5 + 10
+    (function () {
+        const s = setupCanvas('interlock-c');
+        if (!s) return;
+        const { ctx, w, h } = s;
+        const rand = mulberry32(30003);
+
+        const lines5 = generateGrid(w, h, 62, 5);
+        ctx.lineWidth = 0.6;
+        for (const seg of lines5) {
+            if (rand() > 0.55) continue;
+            ctx.strokeStyle = '#5b9bd5';
+            ctx.globalAlpha = 0.45;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+
+        const lines10 = generateGrid(w, h, 38, 10);
+        ctx.lineWidth = 0.4;
+        for (const seg of lines10) {
+            if (rand() > 0.6) continue;
+            ctx.strokeStyle = '#c9a84c';
+            ctx.globalAlpha = 0.4;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // ════════════════════════════════════════════════
+    // Depth & Atmosphere
+    // ════════════════════════════════════════════════
+
+    // A: Three-layer depth
+    (function () {
+        const s = setupCanvas('depth-a');
+        if (!s) return;
+        const { ctx, w, h } = s;
+
+        const layers = [
+            { cell: 70, sides: 12, color: '#2a2015', alpha: 0.2, lineWidth: 0.3 },
+            { cell: 48, sides: 10, color: '#6b5326', alpha: 0.4, lineWidth: 0.5 },
+            { cell: 32, sides: 8,  color: '#c9a84c', alpha: 0.7, lineWidth: 0.7 },
+        ];
+
+        const rand = mulberry32(40001);
+
+        for (const layer of layers) {
+            const lines = generateGrid(w, h, layer.cell, layer.sides);
+            ctx.lineWidth = layer.lineWidth;
+            ctx.strokeStyle = layer.color;
+
+            for (const seg of lines) {
+                if (rand() > 0.6) continue;
+                ctx.globalAlpha = layer.alpha * (0.5 + rand() * 0.5);
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // B: Fog/mist emergence
+    (function () {
+        const s = setupCanvas('depth-b');
+        if (!s) return;
+        const { ctx, w, h } = s;
+        const lines = generateGrid(w, h, 46, 10);
+        const rand = mulberry32(40002);
+
+        // Create fog gradient from bottom
+        for (const seg of lines) {
+            if (rand() > 0.7) continue;
+            const my = (seg[1] + seg[3]) / 2;
+            const mx = (seg[0] + seg[2]) / 2;
+
+            // Fog density increases toward bottom
+            const fogDensity = my / h;
+            // Clear patches in centre
+            const dx = mx - w / 2, dy = my - h * 0.4;
+            const distFromCenter = Math.sqrt(dx * dx + dy * dy) / (Math.max(w, h) * 0.4);
+            const clearPatch = Math.max(0, 1 - distFromCenter);
+
+            const visibility = Math.max(0.05, (1 - fogDensity * 0.8) * (0.3 + clearPatch * 0.7));
+
+            const hue = 40 + fogDensity * 10;
+            const sat = 50 - fogDensity * 30;
+            const lit = 25 + visibility * 40;
+
+            ctx.strokeStyle = `hsl(${hue}, ${sat}%, ${lit}%)`;
+            ctx.globalAlpha = visibility;
+            ctx.lineWidth = 0.4 + visibility * 0.5;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // ════════════════════════════════════════════════
+    // Interactive Pattern
+    // ════════════════════════════════════════════════
+    (function () {
+        const canvas = document.getElementById('interactive');
+        if (!canvas) return;
+
+        const ctlSides = document.getElementById('ctl-sides');
+        const ctlCell = document.getElementById('ctl-cell');
+        const ctlWeight = document.getElementById('ctl-weight');
+        const ctlDensity = document.getElementById('ctl-density');
+        const ctlHue = document.getElementById('ctl-hue');
+
+        function redraw() {
+            const s = setupCanvas(canvas);
+            if (!s) return;
+            const { ctx, w, h } = s;
+
+            const sides = parseInt(ctlSides.value);
+            const cell = parseInt(ctlCell.value);
+            const lineWidth = parseInt(ctlWeight.value) / 10;
+            const density = parseInt(ctlDensity.value) / 100;
+            const hue = parseInt(ctlHue.value);
+
+            document.getElementById('ctl-cell-val').textContent = cell;
+            document.getElementById('ctl-weight-val').textContent = lineWidth.toFixed(1);
+            document.getElementById('ctl-density-val').textContent = Math.round(density * 100) + '%';
+            document.getElementById('ctl-hue-val').textContent = hue;
+
+            const lines = generateGrid(w, h, cell, sides);
+            const rand = mulberry32(50000);
+
+            ctx.lineWidth = lineWidth;
+            const bright = `hsl(${hue}, 55%, 58%)`;
+            const dim = `hsl(${hue}, 40%, 30%)`;
+
+            for (const seg of lines) {
+                const r = rand();
+                if (r > density) continue;
+
+                const edgeness = r / density;
+                ctx.strokeStyle = edgeness > 0.5 ? bright : dim;
+                ctx.globalAlpha = 0.3 + edgeness * 0.5;
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+            ctx.globalAlpha = 1;
+        }
+
+        [ctlSides, ctlCell, ctlWeight, ctlDensity, ctlHue].forEach(el => {
+            el.addEventListener('input', redraw);
+        });
+
+        redraw();
+    })();
+
+    // ════════════════════════════════════════════════
+    // Candidate Border Designs
+    // ════════════════════════════════════════════════
+
+    function drawCandidateBorder(id, drawFn) {
+        const s = setupCanvas(id);
+        if (!s) return;
+        drawFn(s.ctx, s.w, s.h);
+    }
+
+    // A: Classic gold (faithful reproduction of current site)
+    drawCandidateBorder('cand-a', function (ctx, w, h) {
+        const lines = generateGrid(w, h, 52, 10);
+        const rand = mulberry32(12345);
+        ctx.lineWidth = 0.7;
+
+        for (const seg of lines) {
+            const mx = (seg[0] + seg[2]) / 2;
+            let keepProb = 1 - (mx / w);
+            keepProb = Math.pow(Math.max(0, Math.min(1, keepProb)), 1.2);
+            if (rand() > keepProb) continue;
+
+            ctx.strokeStyle = keepProb > 0.5 ? '#c9a84c' : '#6b5326';
+            ctx.globalAlpha = 0.55 + keepProb * 0.35;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+    });
+
+    // B: Gold glow
+    drawCandidateBorder('cand-b', function (ctx, w, h) {
+        const lines = generateGrid(w, h, 52, 10);
+        const rand = mulberry32(12345);
+
+        const kept = [];
+        for (const seg of lines) {
+            const mx = (seg[0] + seg[2]) / 2;
+            let keepProb = 1 - (mx / w);
+            keepProb = Math.pow(Math.max(0, Math.min(1, keepProb)), 1.1);
+            if (rand() < keepProb) kept.push({ seg, keepProb });
+        }
+
+        const layers = [
+            { color: '#c9a84c', width: 6, alpha: 0.03 },
+            { color: '#c9a84c', width: 3.5, alpha: 0.08 },
+            { color: '#e6c45c', width: 1.5, alpha: 0.2 },
+            { color: '#fff5d4', width: 0.5, alpha: 0.6 },
+        ];
+
+        for (const layer of layers) {
+            ctx.strokeStyle = layer.color;
+            ctx.lineWidth = layer.width;
+            for (const { seg, keepProb } of kept) {
+                ctx.globalAlpha = layer.alpha * (0.3 + keepProb * 0.7);
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+        }
+        ctx.globalAlpha = 1;
+    });
+
+    // C: Nested depth
+    drawCandidateBorder('cand-c', function (ctx, w, h) {
+        const rand = mulberry32(12345);
+
+        const layerDefs = [
+            { cell: 70, sides: 12, color: '#2a2015', alpha: 0.2, lw: 0.3 },
+            { cell: 52, sides: 10, color: '#6b5326', alpha: 0.4, lw: 0.5 },
+            { cell: 36, sides: 8,  color: '#c9a84c', alpha: 0.6, lw: 0.6 },
+        ];
+
+        for (const ld of layerDefs) {
+            const lines = generateGrid(w, h, ld.cell, ld.sides);
+            ctx.lineWidth = ld.lw;
+            ctx.strokeStyle = ld.color;
+
+            for (const seg of lines) {
+                const mx = (seg[0] + seg[2]) / 2;
+                let keepProb = 1 - (mx / w);
+                keepProb = Math.pow(Math.max(0, Math.min(1, keepProb)), 1.2);
+                if (rand() > keepProb * 0.7) continue;
+
+                ctx.globalAlpha = ld.alpha * (0.4 + keepProb * 0.6);
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+        }
+        ctx.globalAlpha = 1;
+    });
+
+    // D: Dual 8+12
+    drawCandidateBorder('cand-d', function (ctx, w, h) {
+        const rand = mulberry32(12345);
+
+        // 12-pointed background
+        const lines12 = generateGrid(w, h, 60, 12);
+        ctx.lineWidth = 0.4;
+        for (const seg of lines12) {
+            const mx = (seg[0] + seg[2]) / 2;
+            let keepProb = 1 - (mx / w);
+            keepProb = Math.pow(Math.max(0, Math.min(1, keepProb)), 1.3);
+            if (rand() > keepProb * 0.5) continue;
+
+            ctx.strokeStyle = '#3a2a15';
+            ctx.globalAlpha = 0.3 + keepProb * 0.2;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+
+        // 8-pointed foreground
+        const lines8 = generateGrid(w, h, 44, 8);
+        ctx.lineWidth = 0.6;
+        for (const seg of lines8) {
+            const mx = (seg[0] + seg[2]) / 2;
+            let keepProb = 1 - (mx / w);
+            keepProb = Math.pow(Math.max(0, Math.min(1, keepProb)), 1.2);
+            if (rand() > keepProb) continue;
+
+            ctx.strokeStyle = keepProb > 0.5 ? '#c9a84c' : '#6b5326';
+            ctx.globalAlpha = 0.5 + keepProb * 0.4;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+    });
+
+    // E: Colour shift (gold to teal)
+    drawCandidateBorder('cand-e', function (ctx, w, h) {
+        const lines = generateGrid(w, h, 52, 10);
+        const rand = mulberry32(12345);
+        ctx.lineWidth = 0.7;
+
+        for (const seg of lines) {
+            const mx = (seg[0] + seg[2]) / 2;
+            const my = (seg[1] + seg[3]) / 2;
+            let keepProb = 1 - (mx / w);
+            keepProb = Math.pow(Math.max(0, Math.min(1, keepProb)), 1.2);
+            if (rand() > keepProb) continue;
+
+            const yPct = my / h;
+            const hue = 45 + yPct * 130;
+            const sat = 40 + keepProb * 25;
+            const lit = 28 + keepProb * 28;
+
+            ctx.strokeStyle = `hsl(${hue}, ${sat}%, ${lit}%)`;
+            ctx.globalAlpha = 0.5 + keepProb * 0.4;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+    });
+
+})();
+</script>
+
+</body>
+</html>
