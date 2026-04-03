@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decoration Pattern Exploration</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            color: #e8e8e8;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            padding: 2rem;
+        }
+        h1 {
+            text-align: center;
+            font-size: 1.6rem;
+            color: #c9a84c;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.04em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 2.5rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #111;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #1a1a1a;
+            transition: border-color 0.3s;
+        }
+        .card:hover { border-color: #333; }
+        .card canvas {
+            width: 100%;
+            height: 340px;
+            display: block;
+        }
+        .card-info {
+            padding: 1rem 1.2rem;
+            border-top: 1px solid #1a1a1a;
+        }
+        .card-info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .card-info p {
+            font-size: 0.82rem;
+            color: #888;
+            line-height: 1.5;
+        }
+        .section-label {
+            grid-column: 1 / -1;
+            font-size: 1.1rem;
+            color: #c9a84c;
+            border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 0.5rem;
+            margin-top: 1rem;
+            letter-spacing: 0.03em;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Girih Pattern Exploration Lab</h1>
+<p class="subtitle">Variations on Islamic geometric decoration &mdash; colour, geometry, density, animation</p>
+
+<div class="grid">
+
+    <!-- ═══════════════════════════════════════════ -->
+    <h2 class="section-label">I. Star Geometry Variations</h2>
+
+    <div class="card">
+        <canvas id="c-star6"></canvas>
+        <div class="card-info">
+            <h3>6-Pointed Star (Hexagonal)</h3>
+            <p>Star of David / hexagonal tiling. Simplest girih-family motif. Dense, honeycomb feel.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-star8"></canvas>
+        <div class="card-info">
+            <h3>8-Pointed Star (Octagonal)</h3>
+            <p>Classic Islamic pattern found in the Alhambra. Square-compatible lattice with rich interlocking.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-star10"></canvas>
+        <div class="card-info">
+            <h3>10-Pointed Star (Current Design)</h3>
+            <p>The existing girih pattern. Decagonal symmetry creates complex overlapping regions.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-star12"></canvas>
+        <div class="card-info">
+            <h3>12-Pointed Star (Dodecagonal)</h3>
+            <p>Maximum complexity. Found in Mamluk and Ottoman architecture. Very dense strapwork.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <h2 class="section-label">II. Colour Palettes</h2>
+
+    <div class="card">
+        <canvas id="c-gold"></canvas>
+        <div class="card-info">
+            <h3>Gold on Black (Original)</h3>
+            <p>The current palette. Warm, scholarly, evocative of illuminated manuscripts.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-blue"></canvas>
+        <div class="card-info">
+            <h3>Iznik Blue &amp; White</h3>
+            <p>Inspired by Ottoman Iznik ceramics. Cool, precise, mathematical feeling.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-emerald"></canvas>
+        <div class="card-info">
+            <h3>Emerald &amp; Jade</h3>
+            <p>Deep green palette evoking Mughal architecture. Rich and contemplative.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-copper"></canvas>
+        <div class="card-info">
+            <h3>Copper &amp; Rose</h3>
+            <p>Warm copper tones with rose highlights. Persian metalwork aesthetic.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-night"></canvas>
+        <div class="card-info">
+            <h3>Midnight &amp; Silver</h3>
+            <p>Cool silver on deep navy. Celestial, astronomical instrument feeling.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-terra"></canvas>
+        <div class="card-info">
+            <h3>Terracotta &amp; Ochre</h3>
+            <p>Earthy North African palette. Warm, grounded, archaeological.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <h2 class="section-label">III. Tiling &amp; Density</h2>
+
+    <div class="card">
+        <canvas id="c-sparse"></canvas>
+        <div class="card-info">
+            <h3>Sparse / Breathing</h3>
+            <p>Large cells, thin lines, lots of negative space. Minimal and elegant.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-dense"></canvas>
+        <div class="card-info">
+            <h3>Ultra-Dense Micropattern</h3>
+            <p>Tiny cells packed tight. Reads as texture from a distance, reveals structure up close.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-fade"></canvas>
+        <div class="card-info">
+            <h3>Edge Fade (Border Mode)</h3>
+            <p>Pattern fades from left edge toward centre. The actual border rendering strategy.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-radial"></canvas>
+        <div class="card-info">
+            <h3>Radial Fade</h3>
+            <p>Pattern concentrated in centre, fading outward. Medallion/rosette effect.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <h2 class="section-label">IV. Interlacing &amp; Strapwork</h2>
+
+    <div class="card">
+        <canvas id="c-weave"></canvas>
+        <div class="card-info">
+            <h3>Woven Strapwork</h3>
+            <p>Lines weave over and under each other with shadow. True girih interlacing effect.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-glow"></canvas>
+        <div class="card-info">
+            <h3>Neon Glow</h3>
+            <p>Luminous bloom effect on the lines. Modern/futuristic take on traditional geometry.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <h2 class="section-label">V. Filled Tiles (Zellige-Inspired)</h2>
+
+    <div class="card">
+        <canvas id="c-zellige"></canvas>
+        <div class="card-info">
+            <h3>Zellige Colour Fill</h3>
+            <p>Filled polygonal regions with varied colour. Inspired by Moroccan zellige tilework.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-zellige2"></canvas>
+        <div class="card-info">
+            <h3>Monochrome Zellige</h3>
+            <p>Subtle tonal variations in a single hue family. Sophisticated, understated.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <h2 class="section-label">VI. Animation &amp; Motion</h2>
+
+    <div class="card">
+        <canvas id="c-breathe"></canvas>
+        <div class="card-info">
+            <h3>Breathing Opacity</h3>
+            <p>Lines gently pulse in and out. Subtle, organic movement.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-wave"></canvas>
+        <div class="card-info">
+            <h3>Wave Propagation</h3>
+            <p>Brightness ripples outward from centre. Creates sense of depth and life.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-rotate"></canvas>
+        <div class="card-info">
+            <h3>Slow Rotation</h3>
+            <p>Individual motifs rotate imperceptibly. Hypnotic, kaleidoscopic.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-draw"></canvas>
+        <div class="card-info">
+            <h3>Progressive Draw</h3>
+            <p>Pattern draws itself line by line. Reveals the construction process.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <h2 class="section-label">VII. Layered Geometry</h2>
+
+    <div class="card">
+        <canvas id="c-dual"></canvas>
+        <div class="card-info">
+            <h3>Dual Stars (8 + 12)</h3>
+            <p>Two star tilings overlaid at different scales and colours. Complex moire interference.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-nested"></canvas>
+        <div class="card-info">
+            <h3>Nested Rosettes</h3>
+            <p>Concentric star motifs at decreasing scale within each cell. Fractal-like depth.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-hex"></canvas>
+        <div class="card-info">
+            <h3>Hexagonal Lattice</h3>
+            <p>True hexagonal tiling with 6-fold symmetry. Cells perfectly tessellate without gaps.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-penrose"></canvas>
+        <div class="card-info">
+            <h3>Quasi-Penrose (5-fold)</h3>
+            <p>Aperiodic tiling inspired by Penrose patterns. Never repeats but maintains 5-fold symmetry.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <h2 class="section-label">VIII. Colour Experiments</h2>
+
+    <div class="card">
+        <canvas id="c-rainbow"></canvas>
+        <div class="card-info">
+            <h3>Spectral Gradient</h3>
+            <p>Hue shifts smoothly across the canvas. Each line coloured by its position.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-duotone"></canvas>
+        <div class="card-info">
+            <h3>Duotone: Teal &amp; Gold</h3>
+            <p>Two-colour system where alternating motif layers use contrasting hues.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-fire"></canvas>
+        <div class="card-info">
+            <h3>Ember Glow</h3>
+            <p>Deep reds through orange to bright yellow. Molten metal aesthetic.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="c-ice"></canvas>
+        <div class="card-info">
+            <h3>Frost Crystal</h3>
+            <p>Pale cyan and white on deep blue. Crystalline, fragile, mathematical.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <h2 class="section-label">IX. Border Simulations</h2>
+
+    <div class="card" style="background: #0a0a0a;">
+        <canvas id="c-border-gold" style="height: 340px;"></canvas>
+        <div class="card-info">
+            <h3>Border: Gold (Current)</h3>
+            <p>The existing site border simulation. Gold girih fading from edge.</p>
+        </div>
+    </div>
+
+    <div class="card" style="background: #0a0a0a;">
+        <canvas id="c-border-blue" style="height: 340px;"></canvas>
+        <div class="card-info">
+            <h3>Border: Iznik Blue</h3>
+            <p>Cool blue variant for the side borders. More academic, less manuscript.</p>
+        </div>
+    </div>
+
+    <div class="card" style="background: #0a0a0a;">
+        <canvas id="c-border-multi" style="height: 340px;"></canvas>
+        <div class="card-info">
+            <h3>Border: Gradient Shift</h3>
+            <p>Colour shifts from gold at top to teal at bottom along the border.</p>
+        </div>
+    </div>
+
+    <div class="card" style="background: #0a0a0a;">
+        <canvas id="c-border-glow" style="height: 340px;"></canvas>
+        <div class="card-info">
+            <h3>Border: Soft Glow</h3>
+            <p>Neon-bloom version of the border. Lines glow against the dark background.</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    const TAU = Math.PI * 2;
+
+    // ── Seeded PRNG ──
+    function mulberry32(seed) {
+        return function () {
+            seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+            let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+            t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+            return ((t ^ t >>> 14) >>> 0) / 4294967296;
+        };
+    }
+
+    // ── Generic N-pointed star motif ──
+    function starMotif(cx, cy, outerR, innerR, sides) {
+        const step = TAU / sides;
+        const lines = [];
+        const outerPts = [];
+        const innerPts = [];
+
+        for (let i = 0; i < sides; i++) {
+            const aO = step * i - Math.PI / 2;
+            const aI = step * (i + 0.5) - Math.PI / 2;
+            outerPts.push([cx + outerR * Math.cos(aO), cy + outerR * Math.sin(aO)]);
+            innerPts.push([cx + innerR * Math.cos(aI), cy + innerR * Math.sin(aI)]);
+        }
+
+        // Star outline zigzag
+        for (let i = 0; i < sides; i++) {
+            const next = (i + 1) % sides;
+            lines.push([outerPts[i][0], outerPts[i][1], innerPts[i][0], innerPts[i][1]]);
+            lines.push([innerPts[i][0], innerPts[i][1], outerPts[next][0], outerPts[next][1]]);
+        }
+
+        // Inner polygon
+        for (let i = 0; i < sides; i++) {
+            const next = (i + 1) % sides;
+            lines.push([innerPts[i][0], innerPts[i][1], innerPts[next][0], innerPts[next][1]]);
+        }
+
+        // Cross-lines
+        for (let i = 0; i < Math.floor(sides / 2); i++) {
+            const a = outerPts[i];
+            const b = outerPts[i + Math.floor(sides / 2)];
+            lines.push([a[0], a[1], b[0], b[1]]);
+        }
+
+        return lines;
+    }
+
+    function generateGrid(w, h, cell, sides) {
+        const outerR = cell * 0.48;
+        const innerR = cell * 0.28;
+        const all = [];
+        const cols = Math.ceil(w / cell) + 4;
+        const rows = Math.ceil(h / (cell * 0.85)) + 4;
+
+        for (let row = -2; row < rows; row++) {
+            for (let col = -2; col < cols; col++) {
+                const stagger = (row % 2 === 0) ? 0 : cell * 0.5;
+                const cx = col * cell + stagger;
+                const cy = row * cell * 0.85;
+                all.push(...starMotif(cx, cy, outerR, innerR, sides));
+            }
+        }
+        return all;
+    }
+
+    // ── Setup canvas with DPR ──
+    function setupCanvas(id) {
+        const canvas = document.getElementById(id);
+        if (!canvas) return null;
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width;
+        const h = rect.height;
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        const ctx = canvas.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.lineCap = 'round';
+        return { canvas, ctx, w, h };
+    }
+
+    // ── Draw static pattern ──
+    function drawStatic(id, opts) {
+        const s = setupCanvas(id);
+        if (!s) return;
+        const { ctx, w, h } = s;
+        const {
+            sides = 10, cell = 52, lineWidth = 0.7,
+            color = '#c9a84c', colorDim = '#6b5326',
+            bg = null, fadeMode = 'none', seed = 12345
+        } = opts;
+
+        if (bg) {
+            ctx.fillStyle = bg;
+            ctx.fillRect(0, 0, w, h);
+        }
+
+        ctx.lineWidth = lineWidth;
+        const lines = generateGrid(w, h, cell, sides);
+        const rand = mulberry32(seed);
+
+        for (const seg of lines) {
+            const mx = (seg[0] + seg[2]) / 2;
+            const my = (seg[1] + seg[3]) / 2;
+
+            let keep = 1;
+            if (fadeMode === 'left') {
+                keep = 1 - (mx / w);
+            } else if (fadeMode === 'radial') {
+                const dx = mx - w / 2, dy = my - h / 2;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const maxDist = Math.sqrt(w * w + h * h) / 2;
+                keep = 1 - (dist / maxDist);
+            }
+
+            keep = Math.pow(Math.max(0, Math.min(1, keep)), 1.2);
+            if (rand() > keep) continue;
+
+            ctx.strokeStyle = keep > 0.5 ? color : colorDim;
+            ctx.globalAlpha = 0.4 + keep * 0.5;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+    }
+
+    // ═══════════════════════════════════════════
+    // I. Star Geometry Variations
+    // ═══════════════════════════════════════════
+
+    drawStatic('c-star6', { sides: 6, cell: 48, color: '#c9a84c', colorDim: '#6b5326' });
+    drawStatic('c-star8', { sides: 8, cell: 50, color: '#c9a84c', colorDim: '#6b5326' });
+    drawStatic('c-star10', { sides: 10, cell: 52, color: '#c9a84c', colorDim: '#6b5326' });
+    drawStatic('c-star12', { sides: 12, cell: 56, color: '#c9a84c', colorDim: '#6b5326' });
+
+    // ═══════════════════════════════════════════
+    // II. Colour Palettes
+    // ═══════════════════════════════════════════
+
+    drawStatic('c-gold', { sides: 10, color: '#c9a84c', colorDim: '#6b5326' });
+
+    drawStatic('c-blue', {
+        sides: 10, color: '#5b9bd5', colorDim: '#2d5f8a',
+        bg: '#0a0f1a'
+    });
+
+    drawStatic('c-emerald', {
+        sides: 10, color: '#4caf82', colorDim: '#266b4a',
+        bg: '#060f0a'
+    });
+
+    drawStatic('c-copper', {
+        sides: 10, color: '#d4856a', colorDim: '#8a4a3a',
+        bg: '#0f0a08'
+    });
+
+    drawStatic('c-night', {
+        sides: 10, color: '#b8c4d4', colorDim: '#5a6a7a',
+        bg: '#080c14'
+    });
+
+    drawStatic('c-terra', {
+        sides: 10, color: '#c4884c', colorDim: '#7a5230',
+        bg: '#0f0b08'
+    });
+
+    // ═══════════════════════════════════════════
+    // III. Tiling & Density
+    // ═══════════════════════════════════════════
+
+    drawStatic('c-sparse', { sides: 10, cell: 100, lineWidth: 0.4, color: '#c9a84c', colorDim: '#6b5326' });
+    drawStatic('c-dense', { sides: 10, cell: 18, lineWidth: 0.3, color: '#c9a84c', colorDim: '#6b5326' });
+    drawStatic('c-fade', { sides: 10, fadeMode: 'left', color: '#c9a84c', colorDim: '#6b5326' });
+    drawStatic('c-radial', { sides: 10, fadeMode: 'radial', color: '#c9a84c', colorDim: '#6b5326' });
+
+    // ═══════════════════════════════════════════
+    // IV. Interlacing & Strapwork
+    // ═══════════════════════════════════════════
+
+    // Woven strapwork: draw lines as thick bands with over/under illusion
+    (function () {
+        const s = setupCanvas('c-weave');
+        if (!s) return;
+        const { ctx, w, h } = s;
+        const cell = 60;
+        const sides = 10;
+        const outerR = cell * 0.48;
+        const innerR = cell * 0.28;
+        const lines = generateGrid(w, h, cell, sides);
+        const rand = mulberry32(99999);
+
+        // Sort lines by angle for consistent over/under
+        const enriched = lines.map(seg => {
+            const angle = Math.atan2(seg[3] - seg[1], seg[2] - seg[0]);
+            return { seg, angle, over: rand() > 0.5 };
+        });
+
+        // Draw under lines first, then over
+        for (const pass of [false, true]) {
+            for (const { seg, over } of enriched) {
+                if (over !== pass) continue;
+
+                // Shadow/gap for under lines
+                if (!over) {
+                    ctx.strokeStyle = '#0a0a0a';
+                    ctx.lineWidth = 4;
+                    ctx.globalAlpha = 0.7;
+                    ctx.beginPath();
+                    ctx.moveTo(seg[0], seg[1]);
+                    ctx.lineTo(seg[2], seg[3]);
+                    ctx.stroke();
+                }
+
+                ctx.strokeStyle = over ? '#c9a84c' : '#8a6f2e';
+                ctx.lineWidth = 2;
+                ctx.globalAlpha = over ? 0.9 : 0.6;
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // Neon glow
+    (function () {
+        const s = setupCanvas('c-glow');
+        if (!s) return;
+        const { ctx, w, h } = s;
+        const lines = generateGrid(w, h, 52, 10);
+
+        // Pre-decide which lines to keep using one pass
+        const rand = mulberry32(55555);
+        const kept = [];
+        for (const seg of lines) {
+            if (rand() < 0.65) kept.push(seg);
+        }
+
+        // Draw glow layers from widest/faintest to narrowest/brightest
+        const glowLayers = [
+            { color: '#c9a84c', width: 8, alpha: 0.04 },
+            { color: '#c9a84c', width: 5, alpha: 0.08 },
+            { color: '#e6c45c', width: 3, alpha: 0.18 },
+            { color: '#f0d878', width: 1.5, alpha: 0.4 },
+            { color: '#fff5d4', width: 0.6, alpha: 0.85 },
+        ];
+
+        for (const layer of glowLayers) {
+            ctx.strokeStyle = layer.color;
+            ctx.lineWidth = layer.width;
+            ctx.globalAlpha = layer.alpha;
+            for (const seg of kept) {
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // ═══════════════════════════════════════════
+    // V. Zellige-Inspired Filled Tiles
+    // ═══════════════════════════════════════════
+
+    (function () {
+        const s = setupCanvas('c-zellige');
+        if (!s) return;
+        const { ctx, w, h } = s;
+        const cell = 56;
+        const sides = 8;
+        const rand = mulberry32(77777);
+
+        const palette = [
+            '#1a4a6b', '#2d7a5f', '#c9a84c', '#8a3a3a',
+            '#5b3a8a', '#2a6a6a', '#8a6f2e', '#3a5a8a'
+        ];
+
+        const cols = Math.ceil(w / cell) + 4;
+        const rows = Math.ceil(h / (cell * 0.85)) + 4;
+        const step = TAU / sides;
+
+        for (let row = -2; row < rows; row++) {
+            for (let col = -2; col < cols; col++) {
+                const stagger = (row % 2 === 0) ? 0 : cell * 0.5;
+                const cx = col * cell + stagger;
+                const cy = row * cell * 0.85;
+                const outerR = cell * 0.46;
+
+                // Fill star polygon
+                ctx.globalAlpha = 0.3 + rand() * 0.4;
+                ctx.fillStyle = palette[Math.floor(rand() * palette.length)];
+                ctx.beginPath();
+                for (let i = 0; i < sides; i++) {
+                    const aO = step * i - Math.PI / 2;
+                    const aI = step * (i + 0.5) - Math.PI / 2;
+                    const ox = cx + outerR * Math.cos(aO);
+                    const oy = cy + outerR * Math.sin(aO);
+                    const ix = cx + outerR * 0.58 * Math.cos(aI);
+                    const iy = cy + outerR * 0.58 * Math.sin(aI);
+                    if (i === 0) ctx.moveTo(ox, oy);
+                    else ctx.lineTo(ox, oy);
+                    ctx.lineTo(ix, iy);
+                }
+                ctx.closePath();
+                ctx.fill();
+
+                // Outline
+                ctx.strokeStyle = '#c9a84c';
+                ctx.lineWidth = 0.5;
+                ctx.globalAlpha = 0.5;
+                ctx.stroke();
+            }
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // Monochrome zellige
+    (function () {
+        const s = setupCanvas('c-zellige2');
+        if (!s) return;
+        const { ctx, w, h } = s;
+        const cell = 52;
+        const sides = 10;
+        const rand = mulberry32(88888);
+
+        const cols = Math.ceil(w / cell) + 4;
+        const rows = Math.ceil(h / (cell * 0.85)) + 4;
+        const step = TAU / sides;
+
+        for (let row = -2; row < rows; row++) {
+            for (let col = -2; col < cols; col++) {
+                const stagger = (row % 2 === 0) ? 0 : cell * 0.5;
+                const cx = col * cell + stagger;
+                const cy = row * cell * 0.85;
+                const outerR = cell * 0.46;
+                const tone = 15 + Math.floor(rand() * 25);
+
+                ctx.globalAlpha = 0.6 + rand() * 0.3;
+                ctx.fillStyle = `rgb(${tone + 20}, ${tone + 10}, ${tone})`;
+                ctx.beginPath();
+                for (let i = 0; i < sides; i++) {
+                    const aO = step * i - Math.PI / 2;
+                    const aI = step * (i + 0.5) - Math.PI / 2;
+                    const ox = cx + outerR * Math.cos(aO);
+                    const oy = cy + outerR * Math.sin(aO);
+                    const ix = cx + outerR * 0.58 * Math.cos(aI);
+                    const iy = cy + outerR * 0.58 * Math.sin(aI);
+                    if (i === 0) ctx.moveTo(ox, oy);
+                    else ctx.lineTo(ox, oy);
+                    ctx.lineTo(ix, iy);
+                }
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.strokeStyle = '#c9a84c';
+                ctx.lineWidth = 0.4;
+                ctx.globalAlpha = 0.35;
+                ctx.stroke();
+            }
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // ═══════════════════════════════════════════
+    // VI. Animations
+    // ═══════════════════════════════════════════
+
+    // Breathing opacity
+    (function () {
+        const canvas = document.getElementById('c-breathe');
+        if (!canvas) return;
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        const ctx = canvas.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.lineCap = 'round';
+
+        const lines = generateGrid(w, h, 52, 10);
+        const rand = mulberry32(33333);
+        const phases = lines.map(() => rand() * TAU);
+
+        function frame(t) {
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.clearRect(0, 0, w, h);
+            ctx.lineWidth = 0.7;
+
+            for (let i = 0; i < lines.length; i++) {
+                const seg = lines[i];
+                const breath = 0.3 + 0.5 * (0.5 + 0.5 * Math.sin(t * 0.001 + phases[i]));
+                ctx.strokeStyle = breath > 0.55 ? '#c9a84c' : '#6b5326';
+                ctx.globalAlpha = breath;
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+            ctx.globalAlpha = 1;
+            requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+    })();
+
+    // Wave propagation
+    (function () {
+        const canvas = document.getElementById('c-wave');
+        if (!canvas) return;
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        const ctx = canvas.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.lineCap = 'round';
+
+        const lines = generateGrid(w, h, 52, 10);
+
+        function frame(t) {
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.clearRect(0, 0, w, h);
+            ctx.lineWidth = 0.7;
+
+            for (const seg of lines) {
+                const mx = (seg[0] + seg[2]) / 2;
+                const my = (seg[1] + seg[3]) / 2;
+                const dist = Math.sqrt((mx - w/2) ** 2 + (my - h/2) ** 2);
+                const wave = 0.5 + 0.5 * Math.sin(dist * 0.03 - t * 0.002);
+                const alpha = 0.15 + wave * 0.7;
+
+                ctx.strokeStyle = wave > 0.6 ? '#5b9bd5' : wave > 0.3 ? '#2d5f8a' : '#162a44';
+                ctx.globalAlpha = alpha;
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+            ctx.globalAlpha = 1;
+            requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+    })();
+
+    // Slow rotation
+    (function () {
+        const canvas = document.getElementById('c-rotate');
+        if (!canvas) return;
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        const ctx = canvas.getContext('2d');
+        ctx.lineCap = 'round';
+
+        const cell = 52;
+        const sides = 10;
+        const cols = Math.ceil(w / cell) + 4;
+        const rows = Math.ceil(h / (cell * 0.85)) + 4;
+
+        const centers = [];
+        for (let row = -2; row < rows; row++) {
+            for (let col = -2; col < cols; col++) {
+                const stagger = (row % 2 === 0) ? 0 : cell * 0.5;
+                centers.push({
+                    cx: col * cell + stagger,
+                    cy: row * cell * 0.85,
+                    phase: (row * 7 + col * 13) * 0.3
+                });
+            }
+        }
+
+        function frame(t) {
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.clearRect(0, 0, w, h);
+            ctx.lineWidth = 0.7;
+
+            for (const c of centers) {
+                const angle = t * 0.0003 + c.phase;
+                const outerR = cell * 0.48;
+                const innerR = cell * 0.28;
+                const step = TAU / sides;
+
+                ctx.save();
+                ctx.translate(c.cx, c.cy);
+                ctx.rotate(angle);
+
+                const outerPts = [], innerPts = [];
+                for (let i = 0; i < sides; i++) {
+                    const aO = step * i - Math.PI / 2;
+                    const aI = step * (i + 0.5) - Math.PI / 2;
+                    outerPts.push([outerR * Math.cos(aO), outerR * Math.sin(aO)]);
+                    innerPts.push([innerR * Math.cos(aI), innerR * Math.sin(aI)]);
+                }
+
+                ctx.strokeStyle = '#c9a84c';
+                ctx.globalAlpha = 0.6;
+
+                // Star zigzag
+                for (let i = 0; i < sides; i++) {
+                    const next = (i + 1) % sides;
+                    ctx.beginPath();
+                    ctx.moveTo(outerPts[i][0], outerPts[i][1]);
+                    ctx.lineTo(innerPts[i][0], innerPts[i][1]);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(innerPts[i][0], innerPts[i][1]);
+                    ctx.lineTo(outerPts[next][0], outerPts[next][1]);
+                    ctx.stroke();
+                }
+
+                // Inner polygon
+                ctx.strokeStyle = '#6b5326';
+                ctx.globalAlpha = 0.5;
+                for (let i = 0; i < sides; i++) {
+                    const next = (i + 1) % sides;
+                    ctx.beginPath();
+                    ctx.moveTo(innerPts[i][0], innerPts[i][1]);
+                    ctx.lineTo(innerPts[next][0], innerPts[next][1]);
+                    ctx.stroke();
+                }
+
+                ctx.restore();
+            }
+            ctx.globalAlpha = 1;
+            requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+    })();
+
+    // ═══════════════════════════════════════════
+    // VII. Layered Geometry
+    // ═══════════════════════════════════════════
+
+    // Dual stars: overlay 8-pointed and 12-pointed at different scales
+    (function () {
+        const s = setupCanvas('c-dual');
+        if (!s) return;
+        const { ctx, w, h } = s;
+
+        // Layer 1: large 8-pointed in dim gold
+        const lines8 = generateGrid(w, h, 64, 8);
+        ctx.lineWidth = 0.5;
+        const rand1 = mulberry32(11111);
+        for (const seg of lines8) {
+            if (rand1() > 0.7) continue;
+            ctx.strokeStyle = '#6b5326';
+            ctx.globalAlpha = 0.35;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+
+        // Layer 2: smaller 12-pointed in bright gold
+        const lines12 = generateGrid(w, h, 38, 12);
+        ctx.lineWidth = 0.4;
+        const rand2 = mulberry32(22222);
+        for (const seg of lines12) {
+            if (rand2() > 0.55) continue;
+            ctx.strokeStyle = '#c9a84c';
+            ctx.globalAlpha = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // Nested rosettes: concentric star motifs
+    (function () {
+        const s = setupCanvas('c-nested');
+        if (!s) return;
+        const { ctx, w, h } = s;
+        const cell = 70;
+        const cols = Math.ceil(w / cell) + 2;
+        const rows = Math.ceil(h / (cell * 0.85)) + 2;
+        const rand = mulberry32(13579);
+
+        ctx.lineWidth = 0.5;
+        const scales = [1.0, 0.6, 0.32];
+        const colors = ['#c9a84c', '#8a6f2e', '#5a4520'];
+
+        for (let row = -1; row < rows; row++) {
+            for (let col = -1; col < cols; col++) {
+                const stagger = (row % 2 === 0) ? 0 : cell * 0.5;
+                const cx = col * cell + stagger;
+                const cy = row * cell * 0.85;
+
+                for (let s = 0; s < scales.length; s++) {
+                    const outerR = cell * 0.48 * scales[s];
+                    const innerR = cell * 0.28 * scales[s];
+                    const lines = starMotif(cx, cy, outerR, innerR, 10);
+
+                    ctx.strokeStyle = colors[s];
+                    ctx.globalAlpha = 0.7 - s * 0.15;
+
+                    for (const seg of lines) {
+                        if (rand() > 0.8) continue;
+                        ctx.beginPath();
+                        ctx.moveTo(seg[0], seg[1]);
+                        ctx.lineTo(seg[2], seg[3]);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // Hexagonal lattice with 6-pointed stars
+    (function () {
+        const s = setupCanvas('c-hex');
+        if (!s) return;
+        const { ctx, w, h } = s;
+        const cell = 44;
+        const hexH = cell * Math.sqrt(3);
+        const cols = Math.ceil(w / (cell * 1.5)) + 3;
+        const rows = Math.ceil(h / hexH) + 3;
+        const rand = mulberry32(24680);
+
+        ctx.lineWidth = 0.6;
+
+        for (let row = -1; row < rows; row++) {
+            for (let col = -1; col < cols; col++) {
+                const cx = col * cell * 1.5;
+                const cy = row * hexH + (col % 2 === 0 ? 0 : hexH * 0.5);
+                const outerR = cell * 0.52;
+                const innerR = cell * 0.3;
+
+                // Draw hexagon outline
+                ctx.strokeStyle = '#6b5326';
+                ctx.globalAlpha = 0.4;
+                ctx.beginPath();
+                for (let i = 0; i < 6; i++) {
+                    const a = (TAU / 6) * i - Math.PI / 6;
+                    const x = cx + outerR * Math.cos(a);
+                    const y = cy + outerR * Math.sin(a);
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.stroke();
+
+                // 6-pointed star inside
+                const lines = starMotif(cx, cy, outerR * 0.85, innerR, 6);
+                ctx.strokeStyle = '#c9a84c';
+                ctx.globalAlpha = 0.65;
+                for (const seg of lines) {
+                    if (rand() > 0.85) continue;
+                    ctx.beginPath();
+                    ctx.moveTo(seg[0], seg[1]);
+                    ctx.lineTo(seg[2], seg[3]);
+                    ctx.stroke();
+                }
+            }
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // Quasi-Penrose: 5-fold rotational symmetry overlay
+    (function () {
+        const s = setupCanvas('c-penrose');
+        if (!s) return;
+        const { ctx, w, h } = s;
+        const rand = mulberry32(31415);
+
+        ctx.lineWidth = 0.45;
+
+        // Create 5 sets of parallel lines at 36-degree intervals
+        // Their intersections create Penrose-like quasiperiodic patterns
+        const sets = 5;
+        const spacing = 28;
+
+        for (let s = 0; s < sets; s++) {
+            const angle = (TAU / sets) * s;
+            const cos = Math.cos(angle);
+            const sin = Math.sin(angle);
+
+            // Perpendicular direction
+            const px = -sin;
+            const py = cos;
+
+            const numLines = Math.ceil(Math.sqrt(w * w + h * h) / spacing) + 4;
+
+            ctx.strokeStyle = s < 2 ? '#c9a84c' : s < 4 ? '#8a6f2e' : '#5a4520';
+            ctx.globalAlpha = 0.4;
+
+            for (let i = -numLines; i < numLines; i++) {
+                // Offset from center
+                const offset = i * spacing + (s % 2 === 0 ? 0 : spacing * 0.5);
+                const baseX = w / 2 + px * offset;
+                const baseY = h / 2 + py * offset;
+
+                // Line extends along the angle direction
+                const ext = Math.max(w, h);
+                const x1 = baseX - cos * ext;
+                const y1 = baseY - sin * ext;
+                const x2 = baseX + cos * ext;
+                const y2 = baseY + sin * ext;
+
+                if (rand() > 0.75) continue;
+
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            }
+        }
+
+        // Add small star motifs at some intersections
+        ctx.globalAlpha = 0.6;
+        ctx.strokeStyle = '#c9a84c';
+        const gridStep = spacing * 1.6;
+        for (let y = 0; y < h; y += gridStep) {
+            for (let x = 0; x < w; x += gridStep) {
+                if (rand() > 0.3) continue;
+                const jx = x + (rand() - 0.5) * spacing;
+                const jy = y + (rand() - 0.5) * spacing;
+                const lines = starMotif(jx, jy, spacing * 0.4, spacing * 0.22, 5);
+                for (const seg of lines) {
+                    ctx.beginPath();
+                    ctx.moveTo(seg[0], seg[1]);
+                    ctx.lineTo(seg[2], seg[3]);
+                    ctx.stroke();
+                }
+            }
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // ═══════════════════════════════════════════
+    // VIII. Colour Experiments
+    // ═══════════════════════════════════════════
+
+    // Rainbow/spectral gradient
+    (function () {
+        const s = setupCanvas('c-rainbow');
+        if (!s) return;
+        const { ctx, w, h } = s;
+        const lines = generateGrid(w, h, 48, 10);
+        const rand = mulberry32(66666);
+
+        ctx.lineWidth = 0.6;
+        for (const seg of lines) {
+            if (rand() > 0.7) continue;
+            const mx = (seg[0] + seg[2]) / 2;
+            const my = (seg[1] + seg[3]) / 2;
+            const hue = (mx / w) * 60 + (my / h) * 300; // sweep through spectrum
+            ctx.strokeStyle = `hsl(${hue % 360}, 65%, 55%)`;
+            ctx.globalAlpha = 0.55;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // Duotone: teal & gold
+    (function () {
+        const s = setupCanvas('c-duotone');
+        if (!s) return;
+        const { ctx, w, h } = s;
+        const rand = mulberry32(54321);
+
+        // Teal layer: 8-pointed
+        const lines1 = generateGrid(w, h, 56, 8);
+        ctx.lineWidth = 0.55;
+        for (const seg of lines1) {
+            if (rand() > 0.6) continue;
+            ctx.strokeStyle = '#2a8a7a';
+            ctx.globalAlpha = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+
+        // Gold layer: 10-pointed, offset
+        const lines2 = generateGrid(w, h, 48, 10);
+        for (const seg of lines2) {
+            if (rand() > 0.55) continue;
+            ctx.strokeStyle = '#c9a84c';
+            ctx.globalAlpha = 0.45;
+            ctx.beginPath();
+            ctx.moveTo(seg[0], seg[1]);
+            ctx.lineTo(seg[2], seg[3]);
+            ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // Fire/ember glow
+    (function () {
+        const s = setupCanvas('c-fire');
+        if (!s) return;
+        const { ctx, w, h } = s;
+
+        // Dark warm background
+        ctx.fillStyle = '#0f0604';
+        ctx.fillRect(0, 0, w, h);
+
+        const lines = generateGrid(w, h, 48, 10);
+        const rand = mulberry32(77700);
+
+        // Multiple glow passes
+        const layers = [
+            { color: '#8b1a00', width: 5, alpha: 0.06 },
+            { color: '#cc3300', width: 3, alpha: 0.1 },
+            { color: '#e67300', width: 1.8, alpha: 0.2 },
+            { color: '#ffaa00', width: 1, alpha: 0.35 },
+            { color: '#ffdd44', width: 0.4, alpha: 0.6 },
+        ];
+
+        // Pre-select lines
+        const kept = [];
+        for (const seg of lines) {
+            if (rand() < 0.6) kept.push(seg);
+        }
+
+        for (const layer of layers) {
+            ctx.strokeStyle = layer.color;
+            ctx.lineWidth = layer.width;
+            ctx.globalAlpha = layer.alpha;
+            for (const seg of kept) {
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // Ice/frost crystal
+    (function () {
+        const s = setupCanvas('c-ice');
+        if (!s) return;
+        const { ctx, w, h } = s;
+
+        ctx.fillStyle = '#040a14';
+        ctx.fillRect(0, 0, w, h);
+
+        const lines = generateGrid(w, h, 44, 6);
+        const rand = mulberry32(88800);
+
+        const layers = [
+            { color: '#1a3a5a', width: 4, alpha: 0.06 },
+            { color: '#3a7aaa', width: 2.5, alpha: 0.1 },
+            { color: '#6abadd', width: 1.2, alpha: 0.25 },
+            { color: '#aaddee', width: 0.6, alpha: 0.5 },
+            { color: '#eef8ff', width: 0.3, alpha: 0.8 },
+        ];
+
+        const kept = [];
+        for (const seg of lines) {
+            if (rand() < 0.65) kept.push(seg);
+        }
+
+        for (const layer of layers) {
+            ctx.strokeStyle = layer.color;
+            ctx.lineWidth = layer.width;
+            ctx.globalAlpha = layer.alpha;
+            for (const seg of kept) {
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+        }
+        ctx.globalAlpha = 1;
+    })();
+
+    // ═══════════════════════════════════════════
+    // IX. Border Simulations
+    // ═══════════════════════════════════════════
+
+    // These simulate how patterns look as actual page borders
+    function drawBorder(id, opts) {
+        const s = setupCanvas(id);
+        if (!s) return;
+        const { ctx, w, h } = s;
+        const {
+            sides = 10, cell = 52, lineWidth = 0.7,
+            color = '#c9a84c', colorDim = '#6b5326',
+            colorFn = null, glowMode = false, seed = 12345
+        } = opts;
+
+        ctx.lineWidth = lineWidth;
+        const lines = generateGrid(w, h, cell, sides);
+        const rand = mulberry32(seed);
+
+        if (glowMode) {
+            // Pre-select
+            const kept = [];
+            for (const seg of lines) {
+                const mx = (seg[0] + seg[2]) / 2;
+                let keepProb = 1 - (mx / w);
+                keepProb = Math.pow(Math.max(0, Math.min(1, keepProb)), 1.1);
+                if (rand() < keepProb) kept.push({ seg, keepProb });
+            }
+
+            const layers = [
+                { width: 6, alpha: 0.04 },
+                { width: 3.5, alpha: 0.1 },
+                { width: 1.5, alpha: 0.25 },
+                { width: 0.6, alpha: 0.65 },
+            ];
+
+            for (const layer of layers) {
+                ctx.lineWidth = layer.width;
+                for (const { seg, keepProb } of kept) {
+                    const my = (seg[1] + seg[3]) / 2;
+                    if (colorFn) {
+                        ctx.strokeStyle = colorFn(keepProb, my / h);
+                    } else {
+                        ctx.strokeStyle = color;
+                    }
+                    ctx.globalAlpha = layer.alpha * (0.3 + keepProb * 0.7);
+                    ctx.beginPath();
+                    ctx.moveTo(seg[0], seg[1]);
+                    ctx.lineTo(seg[2], seg[3]);
+                    ctx.stroke();
+                }
+            }
+        } else {
+            for (const seg of lines) {
+                const mx = (seg[0] + seg[2]) / 2;
+                const my = (seg[1] + seg[3]) / 2;
+                let keepProb = 1 - (mx / w);
+                keepProb = Math.pow(Math.max(0, Math.min(1, keepProb)), 1.2);
+
+                if (rand() > keepProb) continue;
+
+                if (colorFn) {
+                    ctx.strokeStyle = colorFn(keepProb, my / h);
+                } else {
+                    ctx.strokeStyle = keepProb > 0.5 ? color : colorDim;
+                }
+                ctx.globalAlpha = 0.55 + keepProb * 0.35;
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+        }
+        ctx.globalAlpha = 1;
+    }
+
+    drawBorder('c-border-gold', {
+        color: '#c9a84c', colorDim: '#6b5326', seed: 12345
+    });
+
+    drawBorder('c-border-blue', {
+        color: '#5b9bd5', colorDim: '#2d5f8a', seed: 12345
+    });
+
+    // Gradient shift border: gold at top, teal at bottom
+    drawBorder('c-border-multi', {
+        seed: 12345,
+        colorFn: function (edge, yPct) {
+            // Interpolate hue from gold (45) to teal (175)
+            const hue = 45 + yPct * 130;
+            const sat = 50 + edge * 20;
+            const lit = 30 + edge * 25;
+            return `hsl(${hue}, ${sat}%, ${lit}%)`;
+        }
+    });
+
+    // Glow border
+    drawBorder('c-border-glow', {
+        color: '#c9a84c', seed: 12345, glowMode: true
+    });
+
+    // Progressive draw
+    (function () {
+        const canvas = document.getElementById('c-draw');
+        if (!canvas) return;
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        const ctx = canvas.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.lineCap = 'round';
+
+        const lines = generateGrid(w, h, 52, 10);
+        // Shuffle deterministically
+        const rand = mulberry32(44444);
+        for (let i = lines.length - 1; i > 0; i--) {
+            const j = Math.floor(rand() * (i + 1));
+            [lines[i], lines[j]] = [lines[j], lines[i]];
+        }
+
+        let drawn = 0;
+        const perFrame = 8;
+        const totalCycles = 1; // how many times to loop
+
+        function frame() {
+            ctx.lineWidth = 0.7;
+
+            const end = Math.min(drawn + perFrame, lines.length);
+            for (let i = drawn; i < end; i++) {
+                const seg = lines[i];
+                const progress = i / lines.length;
+                ctx.strokeStyle = progress < 0.5 ? '#6b5326' : '#c9a84c';
+                ctx.globalAlpha = 0.5 + progress * 0.4;
+                ctx.beginPath();
+                ctx.moveTo(seg[0], seg[1]);
+                ctx.lineTo(seg[2], seg[3]);
+                ctx.stroke();
+            }
+            drawn = end;
+
+            if (drawn < lines.length) {
+                requestAnimationFrame(frame);
+            } else {
+                // Reset after pause
+                setTimeout(() => {
+                    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                    ctx.clearRect(0, 0, w, h);
+                    drawn = 0;
+                    requestAnimationFrame(frame);
+                }, 2000);
+            }
+        }
+        requestAnimationFrame(frame);
+    })();
+
+})();
+</script>
+
+</body>
+</html>
