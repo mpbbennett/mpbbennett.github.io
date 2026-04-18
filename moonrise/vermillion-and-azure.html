@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vermillion and Azure — Moonrise Wiki</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+        <a href="index.html" class="site-title">Moonrise</a>
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="site-nav">
+            <a href="index.html" class="home-link">Home</a>
+            <div class="nav-group"><span class="nav-category">Factions</span><div class="nav-dropdown"><a href="old-dominion.html">Old Dominion</a><a href="the-league.html">The League</a><a href="forest-kingdoms.html">Forest Kingdoms</a><a href="the-three.html">The Three</a><a href="the-congregation.html">The Congregation</a><a href="the-combine.html">The Combine</a><a href="giant-clans.html">Giant Clans</a><a href="dragons.html">Dragons</a><a href="the-kin.html">The Kin</a><a href="the-veil.html">The Veil</a></div></div>
+<div class="nav-group"><span class="nav-category">Ancestries</span><div class="nav-dropdown"><a href="humans.html">Humans</a><a href="dwarves.html">Dwarves</a><a href="elves.html">Elves</a><a href="halflings.html">Halflings</a><a href="goblins.html">Goblins</a><a href="orcs.html">Orcs</a><a href="dragonborn.html">Dragonborn</a><a href="genasi.html">Genasi</a></div></div>
+<div class="nav-group"><span class="nav-category">Religions</span><div class="nav-dropdown"><a href="the-old-gods.html">The Old Gods</a><a href="wayfinders.html">Wayfinders</a><a href="calendar.html">Calendar</a></div></div>
+<div class="nav-group"><span class="nav-category">History</span><div class="nav-dropdown"><a href="history-of-moonrise.html">History of Moonrise</a></div></div>
+<div class="nav-group"><span class="nav-category">Locations</span><div class="nav-dropdown"><a href="regions-of-moonrise.html">Regions of Moonrise</a><a href="mistdam.html">Mistdam</a><a href="neath.html">Neath</a><a href="vermillion-and-azure.html" class="active">Vermillion and Azure</a><a href="torrents-pass.html">Torrent's Pass</a><a href="arrowmoor.html">Arrowmoor</a><a href="the-cloud-capital.html">The Cloud-Capital</a></div></div>
+<div class="nav-group"><span class="nav-category">Cosmology</span><div class="nav-dropdown"><a href="cosmology.html">Cosmology</a></div></div>
+<div class="nav-group"><span class="nav-category">Campaign</span><div class="nav-dropdown"><a href="the-party.html">The Party</a><a href="campaign-summary.html">Campaign Summary</a><a href="npcs.html">NPCs</a></div></div>
+<div class="nav-group"><span class="nav-category">Appendices</span><div class="nav-dropdown"><a href="idioms.html">Idioms</a><a href="magic-items.html">Magic Items</a><a href="names-and-naming.html">Names and Naming</a></div></div>
+        </nav>
+    </div>
+</header>
+
+<main class="content">
+    <article>
+        <h1 id="vermillion-and-azure">Vermillion and Azure</h1>
+<p>Vermillion and Azure are two major port cities on the Isthmus with a famous and long-standing rivalry.</p>
+<h2 id="history">History</h2>
+<p>The last King of Amber had three children. The eldest would inherit the kingdom, but the King wished to provide for the other two, granting each of them land on the Isthmus and making them Dukes of the Vermillion and the Azure.</p>
+<p>When the King died, both Dukes plotted to kill their sibling the heir and share the kingdom between themselves. They succeeded in killing the heir, but each had secretly planned to betray the other. Neither betrayal succeeded, and the two duchies settled into a long conflict.</p>
+<h3 id="joining-the-league">Joining the League</h3>
+<p>The heat of the conflict was eventually tempered when both duchies joined <a href="the-league.html">The League</a>. As part of the terms of their accession, the Duchies reached a truce and ceded the disputed lands between them (including the old capital of Amberquay) to a newly created County of Newamber, bestowed on an adventurer from the Dreaming Coast. Newamber also joined the League.</p>
+<h2 id="the-isthmian-games">The Isthmian Games</h2>
+<p>The rivalry persists today primarily through the Isthmian Games, held every two years and alternating between the two cities. Long notorious for cheating — the hosting city won almost all contests — some degree of integrity was restored two decades ago when the Dukes agreed to give the Hegemon superintendence of the Games.</p>
+<p>The result has been a great growth in the Games&rsquo; popularity. Competitors from across the League and further afield now attend. Competitors represent nations of all kinds, but the strongest tend to be bought out by either Azure or Vermillion, who remain willing to waste considerable resources on their deep mutual hatred.</p>
+<h3 id="the-sexathalon">The Sexathalon</h3>
+<p>The centrepiece of the Games is the Sexathalon, a six-event competition:</p>
+<ol>
+<li><strong>Strength</strong> — Weightlifting</li>
+<li><strong>Dexterity</strong> — Archery</li>
+<li><strong>Constitution</strong> — Hoplite race (running in full armour)</li>
+<li><strong>Wisdom</strong> — Horse race</li>
+<li><strong>Charisma</strong> — Poetry competition</li>
+<li><strong>Speed</strong> — Chariot race</li>
+</ol>
+<p>Competitors must stake a level of personal wealth to participate — a tradition that keeps the Games exclusive and the stakes high.</p>
+<p>Citizens of the two cities are known as Vermilliards and Azurians respectively.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="the-league.html">The League</a></li>
+<li><a href="regions-of-moonrise.html">Regions of Moonrise</a></li>
+</ul>
+    </article>
+</main>
+
+<footer class="site-footer">
+    <p>The Moonrise Wiki &mdash; a homebrew D&amp;D setting</p>
+</footer>
+
+<script>
+// Mobile menu toggle
+(function() {
+    var btn = document.querySelector('.menu-toggle');
+    var nav = document.querySelector('.site-nav');
+    if (!btn || !nav) return;
+    btn.addEventListener('click', function() {
+        var open = nav.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', open);
+    });
+    // Close on link click (mobile)
+    nav.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() {
+            nav.classList.remove('open');
+            btn.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+        });
+    });
+    // Category dropdowns on mobile: tap to toggle
+    nav.querySelectorAll('.nav-category').forEach(function(cat) {
+        cat.addEventListener('click', function(e) {
+            if (window.innerWidth < 900) {
+                e.stopPropagation();
+                cat.parentElement.classList.toggle('expanded');
+            }
+        });
+    });
+})();
+</script>
+
+</body>
+</html>

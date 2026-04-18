@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wayfinders — Moonrise Wiki</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+        <a href="index.html" class="site-title">Moonrise</a>
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="site-nav">
+            <a href="index.html" class="home-link">Home</a>
+            <div class="nav-group"><span class="nav-category">Factions</span><div class="nav-dropdown"><a href="old-dominion.html">Old Dominion</a><a href="the-league.html">The League</a><a href="forest-kingdoms.html">Forest Kingdoms</a><a href="the-three.html">The Three</a><a href="the-congregation.html">The Congregation</a><a href="the-combine.html">The Combine</a><a href="giant-clans.html">Giant Clans</a><a href="dragons.html">Dragons</a><a href="the-kin.html">The Kin</a><a href="the-veil.html">The Veil</a></div></div>
+<div class="nav-group"><span class="nav-category">Ancestries</span><div class="nav-dropdown"><a href="humans.html">Humans</a><a href="dwarves.html">Dwarves</a><a href="elves.html">Elves</a><a href="halflings.html">Halflings</a><a href="goblins.html">Goblins</a><a href="orcs.html">Orcs</a><a href="dragonborn.html">Dragonborn</a><a href="genasi.html">Genasi</a></div></div>
+<div class="nav-group"><span class="nav-category">Religions</span><div class="nav-dropdown"><a href="the-old-gods.html">The Old Gods</a><a href="wayfinders.html" class="active">Wayfinders</a><a href="calendar.html">Calendar</a></div></div>
+<div class="nav-group"><span class="nav-category">History</span><div class="nav-dropdown"><a href="history-of-moonrise.html">History of Moonrise</a></div></div>
+<div class="nav-group"><span class="nav-category">Locations</span><div class="nav-dropdown"><a href="regions-of-moonrise.html">Regions of Moonrise</a><a href="mistdam.html">Mistdam</a><a href="neath.html">Neath</a><a href="vermillion-and-azure.html">Vermillion and Azure</a><a href="torrents-pass.html">Torrent's Pass</a><a href="arrowmoor.html">Arrowmoor</a><a href="the-cloud-capital.html">The Cloud-Capital</a></div></div>
+<div class="nav-group"><span class="nav-category">Cosmology</span><div class="nav-dropdown"><a href="cosmology.html">Cosmology</a></div></div>
+<div class="nav-group"><span class="nav-category">Campaign</span><div class="nav-dropdown"><a href="the-party.html">The Party</a><a href="campaign-summary.html">Campaign Summary</a><a href="npcs.html">NPCs</a></div></div>
+<div class="nav-group"><span class="nav-category">Appendices</span><div class="nav-dropdown"><a href="idioms.html">Idioms</a><a href="magic-items.html">Magic Items</a><a href="names-and-naming.html">Names and Naming</a></div></div>
+        </nav>
+    </div>
+</header>
+
+<main class="content">
+    <article>
+        <h1 id="wayfinders">Wayfinders</h1>
+<p>The Wayfinders (known as Pathfinders in older texts) constitute a religion in a looser sense than <a href="the-congregation.html">The Congregation</a> or even the <a href="the-old-gods.html">Old Gods</a> — they are often described as a way of life or philosophy rather than a faith. They emphasise meditation, peace, and the value of inaction.</p>
+<h2 id="beliefs">Beliefs</h2>
+<p>The Wayfinder tradition is highly decentralised and varied. Three broad schools of thought exist:</p>
+<ul>
+<li><strong>Atheist Wayfinders</strong> claim the gods are a lie and that true insight comes only from within.</li>
+<li><strong>Syncretic Wayfinders</strong> fully integrate the Wayfinder path with worship of the Old Gods, treating the gods as different manifestations of the one path.</li>
+<li><strong>Transcendent Wayfinders</strong> hold that the gods are real and powerful in this world, but that true liberation means going beyond this world and its gods.</li>
+</ul>
+<p>Around 10% of the population of Moonrise identify as Wayfinders.</p>
+<h2 id="origins">Origins</h2>
+<p>The Wayfinder tradition originated roughly 2,000 years ago, during the height of the High Elven Empire.</p>
+<h2 id="institutions">Institutions</h2>
+<p>Wayfinders are institutionally expressed mainly through monastic communities (sometimes organised in networks of mother and daughter houses) and shrines to Wayfinder sages. Wayfinder monasteries have rich traditions of martial arts.</p>
+<h2 id="funerary-customs">Funerary Customs</h2>
+<p>The Wayfinder funerary custom is for the dead to be placed in &ldquo;spires of silence&rdquo; — high towers or clifftops where the bodies may be dismembered by carrion birds. This practice reflects the Wayfinder belief in returning the body to the natural world without ceremony or attachment.</p>
+<h2 id="druid-circles">Druid Circles</h2>
+<p>A Wayfinder-aligned druid circle exists, integrating druidic practice with Wayfinder philosophy.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="the-old-gods.html">The Old Gods</a> — the polytheistic tradition many Wayfinders integrate with</li>
+<li><a href="the-congregation.html">The Congregation</a> — another organised religion, far more hierarchical</li>
+<li><a href="calendar.html">Calendar</a></li>
+</ul>
+    </article>
+</main>
+
+<footer class="site-footer">
+    <p>The Moonrise Wiki &mdash; a homebrew D&amp;D setting</p>
+</footer>
+
+<script>
+// Mobile menu toggle
+(function() {
+    var btn = document.querySelector('.menu-toggle');
+    var nav = document.querySelector('.site-nav');
+    if (!btn || !nav) return;
+    btn.addEventListener('click', function() {
+        var open = nav.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', open);
+    });
+    // Close on link click (mobile)
+    nav.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() {
+            nav.classList.remove('open');
+            btn.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+        });
+    });
+    // Category dropdowns on mobile: tap to toggle
+    nav.querySelectorAll('.nav-category').forEach(function(cat) {
+        cat.addEventListener('click', function(e) {
+            if (window.innerWidth < 900) {
+                e.stopPropagation();
+                cat.parentElement.classList.toggle('expanded');
+            }
+        });
+    });
+})();
+</script>
+
+</body>
+</html>

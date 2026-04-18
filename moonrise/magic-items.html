@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Items — Moonrise Wiki</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+        <a href="index.html" class="site-title">Moonrise</a>
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="site-nav">
+            <a href="index.html" class="home-link">Home</a>
+            <div class="nav-group"><span class="nav-category">Factions</span><div class="nav-dropdown"><a href="old-dominion.html">Old Dominion</a><a href="the-league.html">The League</a><a href="forest-kingdoms.html">Forest Kingdoms</a><a href="the-three.html">The Three</a><a href="the-congregation.html">The Congregation</a><a href="the-combine.html">The Combine</a><a href="giant-clans.html">Giant Clans</a><a href="dragons.html">Dragons</a><a href="the-kin.html">The Kin</a><a href="the-veil.html">The Veil</a></div></div>
+<div class="nav-group"><span class="nav-category">Ancestries</span><div class="nav-dropdown"><a href="humans.html">Humans</a><a href="dwarves.html">Dwarves</a><a href="elves.html">Elves</a><a href="halflings.html">Halflings</a><a href="goblins.html">Goblins</a><a href="orcs.html">Orcs</a><a href="dragonborn.html">Dragonborn</a><a href="genasi.html">Genasi</a></div></div>
+<div class="nav-group"><span class="nav-category">Religions</span><div class="nav-dropdown"><a href="the-old-gods.html">The Old Gods</a><a href="wayfinders.html">Wayfinders</a><a href="calendar.html">Calendar</a></div></div>
+<div class="nav-group"><span class="nav-category">History</span><div class="nav-dropdown"><a href="history-of-moonrise.html">History of Moonrise</a></div></div>
+<div class="nav-group"><span class="nav-category">Locations</span><div class="nav-dropdown"><a href="regions-of-moonrise.html">Regions of Moonrise</a><a href="mistdam.html">Mistdam</a><a href="neath.html">Neath</a><a href="vermillion-and-azure.html">Vermillion and Azure</a><a href="torrents-pass.html">Torrent's Pass</a><a href="arrowmoor.html">Arrowmoor</a><a href="the-cloud-capital.html">The Cloud-Capital</a></div></div>
+<div class="nav-group"><span class="nav-category">Cosmology</span><div class="nav-dropdown"><a href="cosmology.html">Cosmology</a></div></div>
+<div class="nav-group"><span class="nav-category">Campaign</span><div class="nav-dropdown"><a href="the-party.html">The Party</a><a href="campaign-summary.html">Campaign Summary</a><a href="npcs.html">NPCs</a></div></div>
+<div class="nav-group"><span class="nav-category">Appendices</span><div class="nav-dropdown"><a href="idioms.html">Idioms</a><a href="magic-items.html" class="active">Magic Items</a><a href="names-and-naming.html">Names and Naming</a></div></div>
+        </nav>
+    </div>
+</header>
+
+<main class="content">
+    <article>
+        <h1 id="magic-items">Magic Items</h1>
+<p>Homebrew magic items created for the Moonrise campaign. The campaign used Dungeon World mechanics, not D&amp;D 5e.</p>
+<h2 id="first-mates-harpoon">First Mate&rsquo;s Harpoon</h2>
+<p><em>2 Weight, Close, Reach, Near</em></p>
+<p>A six-foot metal pole with jagged spiked teeth at one end and a loop at the other. It has a faint golden-yellow tinge to the spiked ends. The harpoon crackles with magical energy and smells faintly of ozone. Holding it with one hand is difficult — it shakes and jostles unless you are aiming to throw or gripping with both hands.</p>
+<p>When you throw the Harpoon, roll +DEX. On a 10+, there is a peal of thunder, the air shakes, and the target is struck true — roll damage and you may pull the target towards you. On a 7-9, the usual complications apply, or the target pulls you to them instead.</p>
+<h2 id="muting-maul">Muting Maul</h2>
+<p>A long-shafted sledgehammer which, when swung at someone at full force, renders them completely silent for several minutes.</p>
+<h2 id="me">Me</h2>
+<p><em>(+1 damage)</em></p>
+<p>I am a sword. Whenever anyone talks about me, they inadvertently refer to me in the first person. No way has been found yet to speak or write about me in the third person. Other than that, I&rsquo;m just a damn fine sword.</p>
+<h2 id="standard-items-used">Standard Items Used</h2>
+<p>The campaign also made use of several items from the standard rules: magic beans, a bag of devouring, a magic carpet, a cloak of the bat, a figurine of wondrous power, a folding boat, and goggles of darkvision.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="the-party.html">The Party</a> — who wielded these items</li>
+</ul>
+    </article>
+</main>
+
+<footer class="site-footer">
+    <p>The Moonrise Wiki &mdash; a homebrew D&amp;D setting</p>
+</footer>
+
+<script>
+// Mobile menu toggle
+(function() {
+    var btn = document.querySelector('.menu-toggle');
+    var nav = document.querySelector('.site-nav');
+    if (!btn || !nav) return;
+    btn.addEventListener('click', function() {
+        var open = nav.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', open);
+    });
+    // Close on link click (mobile)
+    nav.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() {
+            nav.classList.remove('open');
+            btn.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+        });
+    });
+    // Category dropdowns on mobile: tap to toggle
+    nav.querySelectorAll('.nav-category').forEach(function(cat) {
+        cat.addEventListener('click', function(e) {
+            if (window.innerWidth < 900) {
+                e.stopPropagation();
+                cat.parentElement.classList.toggle('expanded');
+            }
+        });
+    });
+})();
+</script>
+
+</body>
+</html>

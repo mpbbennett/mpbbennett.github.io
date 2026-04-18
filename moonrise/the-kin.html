@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Kin — Moonrise Wiki</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+        <a href="index.html" class="site-title">Moonrise</a>
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="site-nav">
+            <a href="index.html" class="home-link">Home</a>
+            <div class="nav-group"><span class="nav-category">Factions</span><div class="nav-dropdown"><a href="old-dominion.html">Old Dominion</a><a href="the-league.html">The League</a><a href="forest-kingdoms.html">Forest Kingdoms</a><a href="the-three.html">The Three</a><a href="the-congregation.html">The Congregation</a><a href="the-combine.html">The Combine</a><a href="giant-clans.html">Giant Clans</a><a href="dragons.html">Dragons</a><a href="the-kin.html" class="active">The Kin</a><a href="the-veil.html">The Veil</a></div></div>
+<div class="nav-group"><span class="nav-category">Ancestries</span><div class="nav-dropdown"><a href="humans.html">Humans</a><a href="dwarves.html">Dwarves</a><a href="elves.html">Elves</a><a href="halflings.html">Halflings</a><a href="goblins.html">Goblins</a><a href="orcs.html">Orcs</a><a href="dragonborn.html">Dragonborn</a><a href="genasi.html">Genasi</a></div></div>
+<div class="nav-group"><span class="nav-category">Religions</span><div class="nav-dropdown"><a href="the-old-gods.html">The Old Gods</a><a href="wayfinders.html">Wayfinders</a><a href="calendar.html">Calendar</a></div></div>
+<div class="nav-group"><span class="nav-category">History</span><div class="nav-dropdown"><a href="history-of-moonrise.html">History of Moonrise</a></div></div>
+<div class="nav-group"><span class="nav-category">Locations</span><div class="nav-dropdown"><a href="regions-of-moonrise.html">Regions of Moonrise</a><a href="mistdam.html">Mistdam</a><a href="neath.html">Neath</a><a href="vermillion-and-azure.html">Vermillion and Azure</a><a href="torrents-pass.html">Torrent's Pass</a><a href="arrowmoor.html">Arrowmoor</a><a href="the-cloud-capital.html">The Cloud-Capital</a></div></div>
+<div class="nav-group"><span class="nav-category">Cosmology</span><div class="nav-dropdown"><a href="cosmology.html">Cosmology</a></div></div>
+<div class="nav-group"><span class="nav-category">Campaign</span><div class="nav-dropdown"><a href="the-party.html">The Party</a><a href="campaign-summary.html">Campaign Summary</a><a href="npcs.html">NPCs</a></div></div>
+<div class="nav-group"><span class="nav-category">Appendices</span><div class="nav-dropdown"><a href="idioms.html">Idioms</a><a href="magic-items.html">Magic Items</a><a href="names-and-naming.html">Names and Naming</a></div></div>
+        </nav>
+    </div>
+</header>
+
+<main class="content">
+    <article>
+        <h1 id="the-kin">The Kin</h1>
+<p><strong>Values:</strong> Loyalty, Care<br />
+<strong>Symbol:</strong> A moon, black on grey<br />
+<strong>Characteristic class:</strong> Rogue</p>
+<p>The Kin are a secretive international crime syndicate — or so they appear to the rest of the world. In truth, they are a secret society of lycanthropes.</p>
+<h2 id="true-nature">True Nature</h2>
+<p>Unlike the other major factions, the Kin&rsquo;s true nature is hidden. Even those with access to the best intelligence networks know only that lycanthropes are often associated with organised crime. No outsider is aware that there is a cohesive international lycanthropic organisation.</p>
+<p>The vast majority of societies hate and fear lycanthropes and usually execute them immediately. From the perspective of the Kin, they are forced to defend one another from the indifference, duplicity, and oppression of the rest of the world, and see their activities as principally defensive or retaliatory.</p>
+<h2 id="history">History</h2>
+<p>The Kin began as a mutual protection society for lycanthropes, for which secrecy was a necessity for survival. As the group grew, they discovered that their secret network could also be useful for organised crime. The temptation was irresistible, easily justified as revenge against mainstream societies or as a way of acquiring resources for the protection of their kind.</p>
+<p>Today, criminal profit has arguably become the primary goal. However, senior members who retain the group&rsquo;s original idealistic vision remain, and this is the major source of tension within the organisation.</p>
+<h2 id="organisation">Organisation</h2>
+<p>The Kin operate a cell-structure command hierarchy, terminating in a family council. Entry-level recruits are unaware of the organisation&rsquo;s lycanthropic secret. Operatives must submit to lycanthropy to progress through the ranks.</p>
+<p>Not all lycanthropes are members of the Kin, but most lycanthropes living functional lives in humanoid societies are. Kin operatives take various lycanthropic forms — wolves, bears, and more exotic animals including tigers.</p>
+<h3 id="the-hidden-town">The Hidden Town</h3>
+<p>One town is unique in all of Moonrise: a place where lycanthropes live openly. The town is run by the Kin, and those non-lycanthrope residents are in sympathy or service to them. The secret is carefully guarded by a dense network of operatives in the surrounding area who warn of approaching outsiders. The Kin usually find a way to turn outsiders away without bloodshed, but if they must be admitted, the town&rsquo;s residents are always well warned.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="the-veil.html">The Veil</a> — another secretive faction, but with very different methods and goals</li>
+</ul>
+    </article>
+</main>
+
+<footer class="site-footer">
+    <p>The Moonrise Wiki &mdash; a homebrew D&amp;D setting</p>
+</footer>
+
+<script>
+// Mobile menu toggle
+(function() {
+    var btn = document.querySelector('.menu-toggle');
+    var nav = document.querySelector('.site-nav');
+    if (!btn || !nav) return;
+    btn.addEventListener('click', function() {
+        var open = nav.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', open);
+    });
+    // Close on link click (mobile)
+    nav.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() {
+            nav.classList.remove('open');
+            btn.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+        });
+    });
+    // Category dropdowns on mobile: tap to toggle
+    nav.querySelectorAll('.nav-category').forEach(function(cat) {
+        cat.addEventListener('click', function(e) {
+            if (window.innerWidth < 900) {
+                e.stopPropagation();
+                cat.parentElement.classList.toggle('expanded');
+            }
+        });
+    });
+})();
+</script>
+
+</body>
+</html>
