@@ -35,11 +35,11 @@
             <div class="nav-group"><span class="nav-category">Factions</span><div class="nav-dropdown"><a href="old-dominion.html">Old Dominion</a><a href="the-league.html">The League</a><a href="forest-kingdoms.html">Forest Kingdoms</a><a href="the-three.html">The Three</a><a href="the-congregation.html">The Congregation</a><a href="the-combine.html">The Combine</a><a href="giant-clans.html">Giant Clans</a><a href="dragons.html">Dragons</a><a href="the-kin.html">The Kin</a><a href="the-veil.html">The Veil</a></div></div>
 <div class="nav-group"><span class="nav-category">Ancestries</span><div class="nav-dropdown"><a href="humans.html">Humans</a><a href="dwarves.html">Dwarves</a><a href="elves.html">Elves</a><a href="halflings.html">Halflings</a><a href="goblins.html">Goblins</a><a href="orcs.html">Orcs</a><a href="dragonborn.html">Dragonborn</a><a href="genasi.html">Genasi</a></div></div>
 <div class="nav-group"><span class="nav-category">Religions</span><div class="nav-dropdown"><a href="the-old-gods.html">The Old Gods</a><a href="wayfinders.html">Wayfinders</a><a href="calendar.html">Calendar</a></div></div>
-<div class="nav-group"><span class="nav-category">History</span><div class="nav-dropdown"><a href="history-of-moonrise.html">History of Moonrise</a></div></div>
+<div class="nav-group"><span class="nav-category">History</span><div class="nav-dropdown"><a href="history-of-moonrise.html">History of Moonrise</a><a href="arcane-order.html">Arcane Order</a><a href="goblin-despotate.html">Goblin Despotate</a><a href="high-elven-empire.html">High Elven Empire</a></div></div>
 <div class="nav-group"><span class="nav-category">Locations</span><div class="nav-dropdown"><a href="regions-of-moonrise.html">Regions of Moonrise</a><a href="mistdam.html" class="active">Mistdam</a><a href="neath.html">Neath</a><a href="vermillion-and-azure.html">Vermillion and Azure</a><a href="torrents-pass.html">Torrent's Pass</a><a href="arrowmoor.html">Arrowmoor</a><a href="the-cloud-capital.html">The Cloud-Capital</a></div></div>
 <div class="nav-group"><span class="nav-category">Cosmology</span><div class="nav-dropdown"><a href="cosmology.html">Cosmology</a></div></div>
 <div class="nav-group"><span class="nav-category">Campaign</span><div class="nav-dropdown"><a href="the-party.html">The Party</a><a href="campaign-summary.html">Campaign Summary</a><a href="npcs.html">NPCs</a></div></div>
-<div class="nav-group"><span class="nav-category">Appendices</span><div class="nav-dropdown"><a href="idioms.html">Idioms</a><a href="magic-items.html">Magic Items</a><a href="names-and-naming.html">Names and Naming</a></div></div>
+<div class="nav-group"><span class="nav-category">Appendices</span><div class="nav-dropdown"><a href="names-and-naming.html">Names and Naming</a></div></div>
         </nav>
     </div>
 </header>
@@ -104,6 +104,41 @@
             }
         });
     });
+})();
+
+// Map lightbox — click a zoomable figure to open a pan/zoom view
+(function() {
+    var figs = document.querySelectorAll('figure.zoomable img');
+    if (!figs.length) return;
+    var ov = document.createElement('div');
+    ov.className = 'lightbox';
+    var img = document.createElement('img');
+    img.alt = '';
+    var btn = document.createElement('button');
+    btn.className = 'lightbox-close';
+    btn.setAttribute('aria-label', 'Close');
+    btn.innerHTML = '&times;';
+    ov.appendChild(img);
+    ov.appendChild(btn);
+    document.body.appendChild(ov);
+    var scale = 1, tx = 0, ty = 0, drag = false, sx = 0, sy = 0, lastDist = 0;
+    function apply() { img.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')'; }
+    function open(src) { scale = 1; tx = 0; ty = 0; img.src = src; ov.classList.add('open'); document.body.style.overflow = 'hidden'; apply(); }
+    function close() { ov.classList.remove('open'); document.body.style.overflow = ''; img.src = ''; }
+    figs.forEach(function(f) { f.addEventListener('click', function() { open(f.getAttribute('src')); }); });
+    btn.addEventListener('click', close);
+    ov.addEventListener('click', function(e) { if (e.target === ov) close(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
+    ov.addEventListener('wheel', function(e) { e.preventDefault(); scale = Math.min(6, Math.max(1, scale - e.deltaY * 0.0015 * scale)); if (scale <= 1) { scale = 1; tx = 0; ty = 0; } apply(); }, { passive: false });
+    img.addEventListener('mousedown', function(e) { e.preventDefault(); drag = true; sx = e.clientX - tx; sy = e.clientY - ty; });
+    window.addEventListener('mousemove', function(e) { if (!drag) return; tx = e.clientX - sx; ty = e.clientY - sy; apply(); });
+    window.addEventListener('mouseup', function() { drag = false; });
+    ov.addEventListener('touchstart', function(e) { if (e.touches.length === 1) { sx = e.touches[0].clientX - tx; sy = e.touches[0].clientY - ty; } lastDist = 0; }, { passive: false });
+    ov.addEventListener('touchmove', function(e) {
+        if (e.touches.length === 2) { e.preventDefault(); var d = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); if (lastDist) { scale = Math.min(6, Math.max(1, scale * (d / lastDist))); apply(); } lastDist = d; }
+        else if (e.touches.length === 1 && scale > 1) { e.preventDefault(); tx = e.touches[0].clientX - sx; ty = e.touches[0].clientY - sy; apply(); }
+    }, { passive: false });
+    ov.addEventListener('touchend', function() { lastDist = 0; if (scale === 1) { tx = 0; ty = 0; apply(); } });
 })();
 </script>
 
